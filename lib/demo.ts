@@ -9,6 +9,8 @@ export const demoAccounts = [
   { role: "Active student", email: "student@markazuligathah.org", note: "Receipts & ID card ready" },
   { role: "New applicant", email: "applicant@markazuligathah.org", note: "Try paying the acceptance fee" },
   { role: "Alumnus", email: "alumni@markazuligathah.org", note: "Alumni profile" },
+  { role: "Member · Ibadur Rahman", email: "member@markazuligathah.org", note: "Member ID card & dues receipt" },
+  { role: "Member · pending", email: "general.demo@markazuligathah.org", note: "Pay dues → membership activates" },
 ] as const;
 
 export function isDemoLoginEnabled() {

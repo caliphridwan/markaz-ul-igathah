@@ -8,14 +8,14 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const user = await requireUser();
-  const items: NavItem[] = [
+  const items = [
     { href: "/dashboard", label: "Overview", icon: "overview" },
     { href: "/dashboard/payments", label: "Payments", icon: "payments" },
     { href: "/dashboard/receipts", label: "Receipts", icon: "receipts" },
     { href: "/dashboard/id-card", label: "ID card", icon: "idcard" },
     { href: "/dashboard/alumni", label: "Alumni", icon: "alumni" },
     { href: "/dashboard/profile", label: "Profile", icon: "profile" },
-  ];
+  ].filter((i) => !(user.role === "MEMBER" && i.href === "/dashboard/alumni")) as NavItem[];
   return (
     <div className="min-h-screen bg-ivory">
       <PortalNav items={items} user={{ name: fullName(user), sub: user.matricNo ?? user.email, photo: user.photo, initials: initials(user) }} />

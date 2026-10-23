@@ -7,19 +7,22 @@ import { StatusBadge } from "@/components/StatusBadge";
 export default async function AdminHome() {
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
-  const [byStatus, revenue, today, latest, recentPayments] = await Promise.all([
+  const [byStatus, revenue, today, latest, recentPayments, members, pendingMembers] = await Promise.all([
     prisma.user.groupBy({ by: ["status"], where: { role: "STUDENT" }, _count: true }),
     prisma.payment.aggregate({ where: { status: "SUCCESS" }, _sum: { amount: true }, _count: true }),
     prisma.payment.aggregate({ where: { status: "SUCCESS", paidAt: { gte: startOfDay } }, _sum: { amount: true }, _count: true }),
     prisma.user.findMany({ where: { role: "STUDENT" }, orderBy: { createdAt: "desc" }, take: 6, include: { programme: true } }),
     prisma.payment.findMany({ where: { status: "SUCCESS" }, orderBy: { paidAt: "desc" }, take: 6, include: { user: true } }),
+    prisma.user.count({ where: { role: "MEMBER" } }),
+    prisma.user.count({ where: { role: "MEMBER", status: "PENDING" } }),
   ]);
   const count = (s: string) => byStatus.find((b) => b.status === s)?._count ?? 0;
   const total = byStatus.reduce((s, b) => s + b._count, 0);
 
   const tiles = [
     { label: "Total students", value: String(total), sub: `${count("ACTIVE")} active · ${count("GRADUATED")} alumni` },
-    { label: "Awaiting action", value: String(count("PENDING")), sub: "Pending accounts", href: "/admin/students?status=PENDING" },
+    { label: "Awaiting action", value: String(count("PENDING") + pendingMembers), sub: `${count("PENDING")} students · ${pendingMembers} members`, href: "/admin/students?status=PENDING" },
+    { label: "Congregation", value: String(members), sub: "Registered members", href: "/admin/members" },
     { label: "Revenue (all time)", value: money(revenue._sum.amount ?? 0), sub: `${revenue._count} successful payments` },
     { label: "Today", value: money(today._sum.amount ?? 0), sub: `${today._count} payments today` },
   ];
@@ -27,7 +30,7 @@ export default async function AdminHome() {
   return (
     <>
       <PortalHeader title="Registry overview" arabic="لوحة الإدارة" />
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {tiles.map((t) => {
           const body = (
             <>

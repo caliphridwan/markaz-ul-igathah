@@ -7,6 +7,7 @@ export const navLinks = [
   { href: "/about", label: "About" },
   { href: "/programmes", label: "Programmes" },
   { href: "/admissions", label: "Admissions" },
+  { href: "/membership", label: "Membership" },
   { href: "/alumni", label: "Alumni" },
   { href: "/contact", label: "Contact" },
 ];
@@ -30,7 +31,7 @@ export async function SiteHeader() {
         <Link href="/" aria-label="Markaz-ul-Igathah — home">
           <Wordmark />
         </Link>
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
+        <nav className="hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Main">
           {navLinks.map((l) => (
             <Link key={l.href} href={l.href} className="text-[14px] font-semibold text-ink-soft transition hover:text-emerald">
               {l.label}

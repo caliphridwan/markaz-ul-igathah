@@ -9,13 +9,15 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const admin = await requireAdmin();
-  const [pending, unread] = await Promise.all([
+  const [pending, pendingMembers, unread] = await Promise.all([
     prisma.user.count({ where: { role: "STUDENT", status: "PENDING" } }),
+    prisma.user.count({ where: { role: "MEMBER", status: "PENDING" } }),
     prisma.contactMessage.count({ where: { read: false } }),
   ]);
   const items: NavItem[] = [
     { href: "/admin", label: "Overview", icon: "overview" },
     { href: "/admin/students", label: "Students", icon: "students", badge: pending },
+    { href: "/admin/members", label: "Members", icon: "students", badge: pendingMembers },
     { href: "/admin/payments", label: "Payments", icon: "payments" },
     { href: "/admin/fees", label: "Fees", icon: "fees" },
     { href: "/admin/announcements", label: "Announcements", icon: "announcements" },

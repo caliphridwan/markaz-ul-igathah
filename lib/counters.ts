@@ -23,3 +23,10 @@ export async function nextReceiptNo(tx: Tx) {
   const n = await nextValue(tx, `receipt-${year}`);
   return `MUI-RCP-${year}-${String(n).padStart(6, "0")}`;
 }
+
+/** Membership number, e.g. MUI/IBR/2026/0007 — one sequence per segment per year. */
+export async function nextMemberNo(tx: Tx, code: string) {
+  const year = new Date().getFullYear();
+  const n = await nextValue(tx, `member-${code}-${year}`);
+  return `MUI/${code}/${year}/${String(n).padStart(4, "0")}`;
+}

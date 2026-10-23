@@ -1,10 +1,11 @@
 import { Crest } from "./Crest";
 import { amountInWords, date, fullName, money } from "@/lib/format";
 import { site } from "@/lib/site";
+import { segmentLabel } from "@/lib/segments";
 
 type Props = {
   payment: { receiptNo: string | null; purpose: string; amount: number; reference: string; channel: string | null; paidAt: Date | null; feeItem: { session: string } | null };
-  user: { firstName: string; lastName: string; otherName: string | null; matricNo: string | null; email: string; phone: string; programme: { title: string } | null };
+  user: { firstName: string; lastName: string; otherName: string | null; matricNo: string | null; email: string; phone: string; programme: { title: string } | null; role: string; segment: string | null };
   qr: string;
   verifyUrl: string;
 };
@@ -12,8 +13,8 @@ type Props = {
 export function ReceiptDocument({ payment, user, qr, verifyUrl }: Props) {
   const rows: [string, string][] = [
     ["Received from", fullName(user)],
-    ["Matric number", user.matricNo ?? "—"],
-    ["Programme", user.programme?.title ?? "—"],
+    [user.role === "MEMBER" ? "Membership no." : "Matric number", user.matricNo ?? "—"],
+    user.role === "MEMBER" ? ["Segment", segmentLabel(user.segment)] : ["Programme", user.programme?.title ?? "—"],
     ["Session", payment.feeItem?.session ?? site.currentSession],
     ["Email / Phone", `${user.email} · ${user.phone}`],
   ];

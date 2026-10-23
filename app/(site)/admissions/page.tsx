@@ -27,7 +27,7 @@ const faqs = [
 
 export default async function AdmissionsPage() {
   const fees = await prisma.feeItem.findMany({
-    where: { active: true, session: site.currentSession },
+    where: { active: true, audience: "STUDENT", session: site.currentSession },
     include: { programme: true },
     orderBy: [{ programmeId: { sort: "asc", nulls: "first" } }, { amount: "asc" }],
   });

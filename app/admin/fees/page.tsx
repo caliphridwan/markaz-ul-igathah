@@ -4,6 +4,7 @@ import { site } from "@/lib/site";
 import { toggleFeeAction } from "@/app/actions/admin";
 import { PortalHeader } from "@/components/PortalNav";
 import { FeeForm } from "./FeeForm";
+import { SEGMENTS, SEGMENT_KEYS } from "@/lib/segments";
 
 export default async function AdminFees() {
   const [fees, programmes] = await Promise.all([
@@ -16,7 +17,7 @@ export default async function AdminFees() {
       <div className="grid gap-8 lg:grid-cols-3">
         <section className="card h-fit p-6 lg:order-2">
           <h2 className="text-2xl">New fee item</h2>
-          <FeeForm programmes={programmes.map((p) => ({ value: p.id, label: p.title }))} session={site.currentSession} />
+          <FeeForm programmes={programmes.map((p) => ({ value: p.id, label: p.title }))} segments={SEGMENT_KEYS.map((k) => ({ value: k, label: SEGMENTS[k].label }))} session={site.currentSession} />
         </section>
         <div className="table-wrap lg:col-span-2">
           <table className="table">
@@ -28,7 +29,7 @@ export default async function AdminFees() {
                     <p className="font-semibold">{f.name}</p>
                     <p className="text-[12.5px] text-ink-muted">{f.session}{f.activatesAccount && " · activates account"}</p>
                   </td>
-                  <td>{f.programme?.title ?? "All students"}</td>
+                  <td>{f.audience === "MEMBER" ? `Members · ${f.segment ? SEGMENTS[f.segment].label : "all segments"}` : f.programme?.title ?? "All students"}</td>
                   <td className="whitespace-nowrap font-semibold">{money(f.amount)}</td>
                   <td>{f._count.payments}</td>
                   <td>

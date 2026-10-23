@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { feesForUser } from "@/lib/fees";
 import { date, money } from "@/lib/format";
 import { StatusBadge } from "@/components/StatusBadge";
+import { segmentLabel } from "@/lib/segments";
 
 export default async function DashboardHome({ searchParams }: { searchParams: Promise<{ welcome?: string }> }) {
   const { welcome } = await searchParams;
@@ -20,10 +21,14 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
   const hour = new Date().toLocaleString("en-NG", { hour: "numeric", hour12: false, timeZone: "Africa/Lagos" });
   const greet = Number(hour) < 12 ? "Good morning" : Number(hour) < 17 ? "Good afternoon" : "Good evening";
 
+  const isMember = user.role === "MEMBER";
+  const idLabel = isMember ? "membership number" : "matric number";
+
   const tasks = [
     !user.photo && { href: "/dashboard/profile", text: "Upload your passport photograph", icon: UserRound },
-    user.status === "PENDING" && user.entryType === "NEW_STUDENT" && { href: "/dashboard/payments", text: "Pay your acceptance fee to activate your account", icon: CreditCard },
-    user.status === "PENDING" && user.entryType === "ALUMNUS" && { href: "/dashboard/alumni", text: "Awaiting Registry confirmation of your alumni record", icon: AlertTriangle },
+    isMember && user.status === "PENDING" && { href: "/dashboard/payments", text: "Pay your membership dues (or await Registry approval) to activate your membership", icon: CreditCard },
+    !isMember && user.status === "PENDING" && user.entryType === "NEW_STUDENT" && { href: "/dashboard/payments", text: "Pay your acceptance fee to activate your account", icon: CreditCard },
+    !isMember && user.status === "PENDING" && user.entryType === "ALUMNUS" && { href: "/dashboard/alumni", text: "Awaiting Registry confirmation of your alumni record", icon: AlertTriangle },
     (user.status === "ACTIVE" || user.status === "GRADUATED") && user.photo && { href: "/dashboard/id-card", text: "Your ID card is ready to print", icon: IdCard },
   ].filter(Boolean) as { href: string; text: string; icon: typeof UserRound }[];
 
@@ -33,8 +38,8 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
         <div className="flex items-start gap-4 rounded-2xl border border-gold/40 bg-gold/10 p-5">
           <PartyPopper className="mt-0.5 shrink-0 text-gold-dark" />
           <div>
-            <p className="font-semibold">Welcome to the Markaz, {user.firstName}! Your account has been created.</p>
-            <p className="text-sm text-ink-muted">Your matric number is <strong>{user.matricNo}</strong>. Keep it safe — you&apos;ll need it on campus.</p>
+            <p className="font-semibold">Welcome to the Markaz, {user.firstName}! Your {isMember ? "membership" : "account"} has been created.</p>
+            <p className="text-sm text-ink-muted">Your {idLabel} is <strong>{user.matricNo}</strong>. Keep it safe — it appears on your ID card.</p>
           </div>
         </div>
       )}
@@ -49,14 +54,14 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
             <h1 className="mt-2 font-display text-4xl !text-ivory sm:text-5xl">{greet}, {user.firstName}.</h1>
             <div className="mt-5 flex flex-wrap items-center gap-3 text-[14px] text-ivory/75">
               <span className="rounded-full bg-ivory/10 px-3 py-1 font-semibold tracking-wide text-ivory">{user.matricNo}</span>
-              <span>{user.programme?.title ?? "No programme"}</span>
+              <span>{isMember ? `${segmentLabel(user.segment)} · Congregation` : user.programme?.title ?? "No programme"}</span>
               <span className="text-ivory/30">•</span>
               <span>{user.session}</span>
               <StatusBadge status={user.status} />
             </div>
           </div>
           <div className="flex gap-3">
-            <Link href="/dashboard/payments" className="btn-gold">Make a payment</Link>
+            <Link href="/dashboard/payments" className="btn-gold">{isMember ? "Pay dues" : "Make a payment"}</Link>
             <Link href="/dashboard/id-card" className="btn-outline-light">ID card</Link>
           </div>
         </div>

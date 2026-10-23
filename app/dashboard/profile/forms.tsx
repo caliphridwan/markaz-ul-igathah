@@ -14,7 +14,8 @@ export function ProfileForm({ defaults }: { defaults: Record<string, string> }) 
       <Field label="Name in Arabic (optional)" name="arabicName" dir="rtl" lang="ar" defaultValue={defaults.arabicName} state={state} hint="Shown on your ID card" />
       <Field label="Date of birth" name="dateOfBirth" type="date" defaultValue={defaults.dateOfBirth} state={state} />
       <Field label="State of origin" name="stateOfOrigin" defaultValue={defaults.stateOfOrigin} state={state} />
-      <Field label="Residential address" name="address" defaultValue={defaults.address} state={state} className="sm:col-span-2" />
+      <Field label="Occupation" name="occupation" defaultValue={defaults.occupation} state={state} />
+      <Field label="Residential address" name="address" defaultValue={defaults.address} state={state} />
       <Field label="Guardian's name" name="guardianName" defaultValue={defaults.guardianName} state={state} />
       <Field label="Guardian's phone" name="guardianPhone" type="tel" defaultValue={defaults.guardianPhone} state={state} />
       <div className="sm:col-span-2"><FormMessage state={state} /></div>

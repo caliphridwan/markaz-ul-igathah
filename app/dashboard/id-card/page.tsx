@@ -14,7 +14,7 @@ export default async function IdCardPage() {
 
   if (!ready) {
     const checks = [
-      { ok: active, text: "Account activated (pay the acceptance fee)", href: "/dashboard/payments" },
+      { ok: active, text: user.role === "MEMBER" ? "Membership activated (pay your dues or await Registry approval)" : "Account activated (pay the acceptance fee)", href: "/dashboard/payments" },
       { ok: !!user.photo, text: "Passport photograph uploaded", href: "/dashboard/profile" },
     ];
     return (

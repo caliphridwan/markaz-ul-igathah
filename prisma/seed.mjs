@@ -12,6 +12,10 @@ async function nextMatricNo(tx) {
   const year = new Date().getFullYear();
   return `MUI/${year}/${String(await nextValue(tx, `matric-${year}`)).padStart(4, "0")}`;
 }
+async function nextMemberNo(tx, code) {
+  const year = new Date().getFullYear();
+  return `MUI/${code}/${year}/${String(await nextValue(tx, `member-${code}-${year}`)).padStart(4, "0")}`;
+}
 async function nextReceiptNo(tx) {
   const year = new Date().getFullYear();
   return `MUI-RCP-${year}-${String(await nextValue(tx, `receipt-${year}`)).padStart(6, "0")}`;
@@ -122,6 +126,17 @@ async function main() {
   for (const g of general) {
     const exists = await prisma.feeItem.findFirst({ where: { name: g.name, session: SESSION, programmeId: null } });
     if (!exists) await prisma.feeItem.create({ data: { ...g, session: SESSION } });
+  }
+
+  // Congregation membership dues (charged to members, not students)
+  const YEAR = String(new Date().getFullYear());
+  const memberFees = [
+    { name: "Annual Membership Dues", description: "Yearly dues — activates your membership", amount: naira(5000), activatesAccount: true },
+    { name: "Membership ID Card", description: "Production of your membership identity card", amount: naira(2000) },
+  ];
+  for (const m of memberFees) {
+    const exists = await prisma.feeItem.findFirst({ where: { name: m.name, audience: "MEMBER", session: YEAR } });
+    if (!exists) await prisma.feeItem.create({ data: { ...m, session: YEAR, audience: "MEMBER" } });
   }
 
   if ((await prisma.announcement.count()) === 0) {
@@ -236,6 +251,44 @@ async function seedDemo() {
 
     if (s.alumni) {
       await prisma.alumniProfile.upsert({ where: { userId: user.id }, update: {}, create: { ...s.alumni, userId: user.id } });
+    }
+  }
+
+  // Congregation members — one per segment (codes match lib/segments.ts)
+  const YEAR = String(new Date().getFullYear());
+  const members = [
+    { email: "member@markazuligathah.org", firstName: "Abdulrahman", lastName: "Salihu", arabicName: "عبد الرحمن صالح", gender: "MALE", segment: "IBADUR_RAHMAN", code: "IBR", status: "ACTIVE", photoBg: "#E9DFC8", pay: ["Annual Membership Dues"] },
+    { email: "elder.demo@markazuligathah.org", firstName: "Alhaji Musa", lastName: "Adebayo", gender: "MALE", segment: "ELDER", code: "ELD", status: "ACTIVE", photoBg: "#E6CF8F" },
+    { email: "zeenat.demo@markazuligathah.org", firstName: "Aminat", lastName: "Olawale", gender: "FEMALE", segment: "ZEENATUL_IGATHAH", code: "ZEN", status: "ACTIVE", photoBg: "#D8CAA8" },
+    { email: "fatayaat.demo@markazuligathah.org", firstName: "Rukayyah", lastName: "Ibrahim", gender: "FEMALE", segment: "FATAYAATUL_IGATHAH", code: "FAT", status: "PENDING" },
+    { email: "general.demo@markazuligathah.org", firstName: "Sulaiman", lastName: "Bakare", gender: "MALE", segment: "MEMBER", code: "MEM", status: "PENDING" },
+  ];
+  for (const m of members) {
+    const existing = await prisma.user.findUnique({ where: { email: m.email } });
+    const user =
+      existing ??
+      (await prisma.$transaction(async (tx) =>
+        tx.user.create({
+          data: {
+            role: "MEMBER", email: m.email, passwordHash: hash, firstName: m.firstName, lastName: m.lastName, arabicName: m.arabicName ?? null,
+            gender: m.gender, phone: "08023456789", segment: m.segment, status: m.status, session: YEAR,
+            matricNo: await nextMemberNo(tx, m.code), occupation: "Trader", address: "Ilorin, Kwara State",
+            photo: m.photoBg ? avatar(`${m.firstName[0]}${m.lastName[0]}`, m.photoBg) : null,
+          },
+        }),
+      ));
+    if (m.pay && (await prisma.payment.count({ where: { userId: user.id } })) === 0) {
+      for (const name of m.pay) {
+        const fee = await prisma.feeItem.findFirstOrThrow({ where: { name, audience: "MEMBER" } });
+        await prisma.$transaction(async (tx) =>
+          tx.payment.create({
+            data: {
+              userId: user.id, feeItemId: fee.id, purpose: fee.name, amount: fee.amount, status: "SUCCESS", channel: "demo",
+              reference: `DEMO-${user.id.slice(-6)}-${fee.id.slice(-6)}`.toUpperCase(), receiptNo: await nextReceiptNo(tx), paidAt: new Date(),
+            },
+          }),
+        );
+      }
     }
   }
 

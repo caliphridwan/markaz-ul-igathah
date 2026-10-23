@@ -22,6 +22,7 @@ export function SiteFooter() {
               ["/about", "About the Markaz"],
               ["/programmes", "Programmes"],
               ["/admissions", "Admissions & fees"],
+              ["/membership", "Congregation membership"],
               ["/alumni", "Alumni network"],
               ["/register", "Apply online"],
               ["/login", "Student portal"],

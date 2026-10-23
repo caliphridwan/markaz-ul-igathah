@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const session = await verifySession(req.cookies.get(SESSION_COOKIE)?.value);
 
   const isPortal = pathname.startsWith("/dashboard") || pathname.startsWith("/admin");
-  const isAuthPage = pathname === "/login" || pathname === "/register";
+  const isAuthPage = pathname === "/login" || pathname === "/register" || pathname === "/membership/join";
 
   if (isPortal && !session) {
     const url = new URL("/login", req.url);
@@ -23,5 +23,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/admin/:path*", "/login", "/register"],
+  matcher: ["/dashboard/:path*", "/admin/:path*", "/login", "/register", "/membership/join"],
 };

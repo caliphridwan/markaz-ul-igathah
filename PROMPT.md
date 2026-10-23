@@ -79,6 +79,14 @@ No external file storage: student passport photos are resized in the browser to 
 - **Alumni** — graduates create/edit their alumni profile (grad year, occupation, location, bio, LinkedIn, visibility toggle).
 - **Profile** — edit contact details, guardian, passport photo upload (client-side resize), change password.
 
+### Congregation membership (`/membership`, `/membership/join`, role MEMBER)
+- Members of the masjid sign up into one of five segments: **Elders (الشيوخ)**, **Ibadur Rahman (عباد الرحمن)**, **Zeenatul Igathah (زينة الإغاثة)**, **Fatayaatul Igathah (فتيات الإغاثة)**, **Member (عضو)** — defined once in `lib/segments.ts` with label, Arabic, colour, code and description.
+- Membership number per segment per year: `MUI/{CODE}/{year}/{0000}` (ELD, IBR, ZEN, FAT, MEM).
+- Members share the portal (overview, payments, receipts, ID card, profile — no alumni tab). Fees have an `audience` (STUDENT | MEMBER) and optional `segment`; members see only member dues.
+- Membership activates when an admin approves it or when dues marked "activates account" are paid.
+- Membership ID card: same CR80 design, labelled "Member identity card", shows membership no., segment (English + Arabic) and "member since", footer strip in the segment colour; QR verifies at `/verify/student/[id]` as "Verified member".
+- Admin `/admin/members`: counts per segment, search/filter, approve/suspend.
+
 ### Admin (`/admin`, role ADMIN)
 - **Overview** — counts (students by status, revenue total, payments today), latest registrations.
 - **Students** — search/filter, view, set status (Pending → Active → Graduated / Suspended).

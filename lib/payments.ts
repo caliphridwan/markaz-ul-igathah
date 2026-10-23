@@ -75,7 +75,7 @@ export async function finalizePayment(reference: string, result: { success: bool
     const updated = await tx.payment.findUniqueOrThrow({ where: { id: payment.id }, include: { feeItem: true, user: true } });
     if (res.count === 0) return updated;
 
-    if (payment.feeItem?.activatesAccount && payment.user.status === "PENDING" && payment.user.entryType === "NEW_STUDENT") {
+    if (payment.feeItem?.activatesAccount && payment.user.status === "PENDING" && (payment.user.role === "MEMBER" || payment.user.entryType === "NEW_STUDENT")) {
       await tx.user.update({ where: { id: payment.userId }, data: { status: "ACTIVE" } });
     }
     return updated;

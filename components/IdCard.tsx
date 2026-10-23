@@ -1,5 +1,6 @@
 import { Crest } from "./Crest";
 import { site } from "@/lib/site";
+import { SEGMENTS, type SegmentKey } from "@/lib/segments";
 
 type Student = {
   firstName: string;
@@ -12,7 +13,15 @@ type Student = {
   status: string;
   photo: string | null;
   programme: { title: string } | null;
+  role: string;
+  segment: string | null;
 };
+
+function memberInfo(s: Student) {
+  const isMember = s.role === "MEMBER";
+  const seg = isMember && s.segment && s.segment in SEGMENTS ? SEGMENTS[s.segment as SegmentKey] : null;
+  return { isMember, seg };
+}
 
 /**
  * CR80 ID card (85.6 × 54 mm). Everything inside is sized in `em`, so the card scales
@@ -22,26 +31,30 @@ const shell = "relative h-[33.75em] w-[53.5em] overflow-hidden rounded-[2em] tex
 
 export function IdCardFront({ s }: { s: Student }) {
   const name = [s.firstName, s.otherName, s.lastName].filter(Boolean).join(" ");
-  const role = s.status === "GRADUATED" ? "Alumnus" : "Student";
+  const { isMember, seg } = memberInfo(s);
+  const role = isMember ? "Member" : s.status === "GRADUATED" ? "Alumnus" : "Student";
+  // Labels and values use tight line-heights so the stack always fits above the footer strip.
+  const label = "block text-[0.95em] font-bold uppercase leading-none tracking-[0.2em] text-ink-muted";
+  const value = "mt-[0.25em] block text-[1.35em] font-semibold leading-[1.25]";
   return (
-    <div className={`${shell} bg-ivory`}>
+    <div className={`${shell} flex flex-col bg-ivory`}>
       <div className="pattern-ink absolute inset-0 opacity-[0.05]" style={{ backgroundSize: "6em 6em" }} />
       {/* header */}
-      <div className="relative flex h-[8.4em] items-center gap-[1.2em] bg-emerald px-[2em] text-ivory">
+      <div className="relative flex h-[7.2em] shrink-0 items-center gap-[1.2em] bg-emerald px-[2em] text-ivory">
         <div className="pattern-gold absolute inset-0 opacity-[0.12]" style={{ backgroundSize: "6em 6em" }} />
-        <Crest size={44} className="relative h-[5.4em] w-[5.4em]" />
+        <Crest size={44} className="relative h-[4.8em] w-[4.8em]" />
         <div className="relative flex-1 leading-none">
-          <p className="font-display text-[2.3em] font-semibold">{site.name}</p>
-          <p className="mt-[0.35em] text-[1em] font-bold uppercase tracking-[0.28em] text-gold-light">{role} identity card</p>
+          <p className="font-display text-[2.2em] font-semibold">{site.name}</p>
+          <p className="mt-[0.35em] text-[0.95em] font-bold uppercase tracking-[0.28em] text-gold-light">{role} identity card</p>
         </div>
-        <p lang="ar" dir="rtl" className="relative font-ruqaa text-[2.4em] text-gold-light">{site.arabicName}</p>
+        <p lang="ar" dir="rtl" className="relative font-ruqaa text-[2.2em] leading-none text-gold-light">{site.arabicName}</p>
       </div>
-      <div className="h-[0.45em] bg-gold" />
+      <div className="h-[0.4em] shrink-0 bg-gold" />
 
-      {/* body */}
-      <div className="relative flex gap-[2em] px-[2em] pt-[1.8em]">
+      {/* body — fills exactly the space between header and footer */}
+      <div className="relative flex min-h-0 flex-1 items-center gap-[2em] overflow-hidden px-[2em] py-[1.2em]">
         <div className="shrink-0">
-          <div className="arch h-[16em] w-[12.6em] border-[0.25em] border-gold bg-parchment p-[0.35em]">
+          <div className="arch h-[15em] w-[11.8em] border-[0.25em] border-gold bg-parchment p-[0.35em]">
             <div className="arch h-full w-full overflow-hidden bg-sand">
               {s.photo && (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -51,33 +64,45 @@ export function IdCardFront({ s }: { s: Student }) {
           </div>
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[1em] font-bold uppercase tracking-[0.2em] text-ink-muted">Name</p>
-          <p className="font-display text-[2.5em] font-bold leading-[1.05] text-ink">{name}</p>
+          <span className={label}>Name</span>
+          <p className="mt-[0.2em] line-clamp-2 font-display text-[2.15em] font-bold leading-[1.08] text-ink">{name}</p>
           {s.arabicName && (
-            <p lang="ar" dir="rtl" className="text-right font-arabic text-[1.9em] leading-tight text-emerald">{s.arabicName}</p>
+            <p lang="ar" dir="rtl" className="truncate text-right font-arabic text-[1.55em] leading-[1.3] text-emerald">{s.arabicName}</p>
           )}
-          <dl className="mt-[1em] grid grid-cols-2 gap-x-[1.5em] gap-y-[0.8em]">
+          <dl className="mt-[0.8em] grid grid-cols-2 gap-x-[1.5em] gap-y-[0.65em]">
             <div className="col-span-2">
-              <dt className="text-[1em] font-bold uppercase tracking-[0.2em] text-ink-muted">Matric no.</dt>
-              <dd className="font-mono text-[1.75em] font-bold tracking-wide text-emerald">{s.matricNo}</dd>
+              <dt className={label}>{isMember ? "Membership no." : "Matric no."}</dt>
+              <dd className="mt-[0.2em] font-mono text-[1.6em] font-bold leading-[1.2] tracking-wide text-emerald">{s.matricNo}</dd>
             </div>
-            <div className="col-span-2">
-              <dt className="text-[1em] font-bold uppercase tracking-[0.2em] text-ink-muted">Programme</dt>
-              <dd className="truncate text-[1.45em] font-semibold">{s.programme?.title ?? "—"}</dd>
+            <div className="col-span-2 min-w-0">
+              <dt className={label}>{isMember ? "Segment" : "Programme"}</dt>
+              <dd className={`${value} flex items-baseline justify-between gap-[0.6em] truncate`}>
+                <span className="truncate">{isMember ? seg?.label ?? "Member" : s.programme?.title ?? "—"}</span>
+                {seg && (
+                  <span lang="ar" dir="rtl" className="shrink-0 font-arabic text-[0.95em] font-normal" style={{ color: seg.color }}>
+                    {seg.arabic}
+                  </span>
+                )}
+              </dd>
             </div>
             <div>
-              <dt className="text-[1em] font-bold uppercase tracking-[0.2em] text-ink-muted">Session</dt>
-              <dd className="text-[1.45em] font-semibold">{s.session}</dd>
+              <dt className={label}>{isMember ? "Member since" : "Session"}</dt>
+              <dd className={value}>{s.session ?? "—"}</dd>
             </div>
             <div>
-              <dt className="text-[1em] font-bold uppercase tracking-[0.2em] text-ink-muted">Gender</dt>
-              <dd className="text-[1.45em] font-semibold capitalize">{s.gender.toLowerCase()}</dd>
+              <dt className={label}>Gender</dt>
+              <dd className={`${value} capitalize`}>{s.gender.toLowerCase()}</dd>
             </div>
           </dl>
         </div>
       </div>
-      <div className="absolute inset-x-0 bottom-0 flex h-[2.6em] items-center justify-between bg-emerald-900 px-[2em] text-[1em] font-semibold uppercase tracking-[0.2em] text-gold-light">
-        <span>Valid · {s.session} session</span>
+
+      {/* footer strip — in normal flow, so content can never sit underneath it */}
+      <div
+        className="relative flex h-[2.4em] shrink-0 items-center justify-between bg-emerald-900 px-[2em] text-[1em] font-semibold uppercase tracking-[0.2em] text-gold-light"
+        style={seg ? { backgroundColor: seg.color } : undefined}
+      >
+        <span>{isMember ? `${seg?.label ?? "Member"} · Valid ${new Date().getFullYear()}` : `Valid · ${s.session} session`}</span>
         <span>Knowledge · Character · Service</span>
       </div>
     </div>

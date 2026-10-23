@@ -7,7 +7,8 @@ Next.js 15 (App Router) · TypeScript · Tailwind CSS · Prisma · PostgreSQL ·
 
 - Public site: Home, About, Programmes, Admissions (live fee schedule), Alumni wall, Contact, QR verification pages
 - Student portal: register / log in, auto matric number (`MUI/2026/0001`), pay fees via Paystack, instant receipts with QR, printable CR80 ID card (front & back), alumni profile, profile & passport photo, password change
-- Admin: overview stats, student management (approve / graduate / suspend), payments ledger, fee items, announcements, contact inbox
+- Congregation membership: masjid members sign up at `/membership/join` into one of five segments — Elders, Ibadur Rahman, Zeenatul Igathah, Fatayaatul Igathah, Member — get a membership number (`MUI/IBR/2026/0001`), pay dues and print a segment-coloured membership ID card
+- Admin: overview stats, members by segment, student management (approve / graduate / suspend), payments ledger, fee items, announcements, contact inbox
 
 The full product brief used to build this is in [`PROMPT.md`](./PROMPT.md).
 
@@ -39,6 +40,8 @@ Open http://localhost:3000/login — the demo accounts are listed there; click o
 | Active student | student@markazuligathah.org | 3 paid receipts, ready-to-print ID card |
 | New applicant | applicant@markazuligathah.org | Pay the acceptance fee → account activates |
 | Alumnus | alumni@markazuligathah.org | Alumni profile on the public wall |
+| Member · Ibadur Rahman | member@markazuligathah.org | Membership ID card, dues receipt |
+| Member · pending | general.demo@markazuligathah.org | Pay dues → membership activates |
 
 Your own admin account is also created from `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
 With no Paystack key and `PAYMENTS_DEMO_MODE="true"`, payments complete instantly.
@@ -69,8 +72,9 @@ Option B — manual (same as AlFawz):
 ## 4. Customise
 
 - Institution details (address, phone, email, founding year, Mudir, stats): `lib/site.ts`
+- Membership segments (names, Arabic, colours, descriptions, number codes): `lib/segments.ts`
 - Colours & fonts: `tailwind.config.ts`, `app/layout.tsx`
-- Programmes & fees: seed file `prisma/seed.ts`, or manage fees live from `/admin/fees`
+- Programmes & fees: seed file `prisma/seed.mjs`, or manage fees live from `/admin/fees`
 - Contact map: replace the placeholder in `app/(site)/contact/page.tsx` with a Google Maps iframe
 
 ## 5. Structure

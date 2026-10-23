@@ -3,7 +3,7 @@ import { SignJWT, jwtVerify } from "jose";
 export const SESSION_COOKIE = "mui_session";
 export const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-export type SessionPayload = { sub: string; role: "STUDENT" | "ADMIN" };
+export type SessionPayload = { sub: string; role: "STUDENT" | "MEMBER" | "ADMIN" };
 
 function key() {
   const secret = process.env.JWT_SECRET;
@@ -27,7 +27,7 @@ export async function verifySession(token: string | undefined): Promise<SessionP
   try {
     const { payload } = await jwtVerify(token, key(), { algorithms: ["HS256"] });
     if (!payload.sub) return null;
-    const role = payload.role === "ADMIN" ? "ADMIN" : "STUDENT";
+    const role = payload.role === "ADMIN" ? "ADMIN" : payload.role === "MEMBER" ? "MEMBER" : "STUDENT";
     return { sub: payload.sub, role };
   } catch {
     return null;

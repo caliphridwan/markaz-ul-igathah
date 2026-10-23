@@ -5,6 +5,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { echo, type FormState } from "./types";
+import { SEGMENTS, type SegmentKey } from "@/lib/segments";
 
 const statuses = ["PENDING", "ACTIVE", "GRADUATED", "SUSPENDED"] as const;
 
@@ -13,7 +14,7 @@ export async function setStudentStatusAction(formData: FormData) {
   const id = String(formData.get("id") || "");
   const status = z.enum(statuses).safeParse(formData.get("status"));
   if (!id || !status.success) return;
-  await prisma.user.update({ where: { id, role: "STUDENT" }, data: { status: status.data } });
+  await prisma.user.update({ where: { id, role: { in: ["STUDENT", "MEMBER"] } }, data: { status: status.data } });
   revalidatePath("/admin", "layout");
 }
 
@@ -23,6 +24,8 @@ const feeSchema = z.object({
   amount: z.coerce.number().positive("Enter an amount").max(100_000_000),
   session: z.string().trim().min(4),
   programmeId: z.string().optional(),
+  audience: z.enum(["STUDENT", "MEMBER"]).default("STUDENT"),
+  segment: z.string().optional(),
   activatesAccount: z.string().optional(),
 });
 
@@ -37,7 +40,9 @@ export async function createFeeAction(_: FormState, formData: FormData): Promise
       description: d.description || null,
       amount: Math.round(d.amount * 100),
       session: d.session,
-      programmeId: d.programmeId || null,
+      audience: d.audience,
+      programmeId: d.audience === "STUDENT" ? d.programmeId || null : null,
+      segment: d.audience === "MEMBER" && d.segment && d.segment in SEGMENTS ? (d.segment as SegmentKey) : null,
       activatesAccount: d.activatesAccount === "on",
     },
   });

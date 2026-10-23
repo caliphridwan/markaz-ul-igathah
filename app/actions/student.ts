@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
+import { feeScope } from "@/lib/fees";
 import { finalizePayment, isDemoMode, newReference, paystackInitialize, paystackKey } from "@/lib/payments";
 import { echo, type FormState } from "./types";
 
@@ -23,6 +24,7 @@ const profileSchema = z.object({
   stateOfOrigin: opt,
   guardianName: opt,
   guardianPhone: opt,
+  occupation: opt,
   dateOfBirth: z.string().optional(),
 });
 
@@ -98,9 +100,7 @@ export async function saveAlumniAction(_: FormState, formData: FormData): Promis
 export async function startPaymentAction(formData: FormData) {
   const user = await requireUser();
   const feeItemId = String(formData.get("feeItemId") || "");
-  const fee = await prisma.feeItem.findFirst({
-    where: { id: feeItemId, active: true, OR: [{ programmeId: null }, { programmeId: user.programmeId ?? "__none__" }] },
-  });
+  const fee = await prisma.feeItem.findFirst({ where: { AND: [{ id: feeItemId }, feeScope(user)] } });
   if (!fee) redirect("/dashboard/payments?error=invalid");
 
   const alreadyPaid = await prisma.payment.findFirst({ where: { userId: user.id, feeItemId: fee.id, status: "SUCCESS" } });
@@ -125,7 +125,7 @@ export async function startPaymentAction(formData: FormData) {
       email: user.email,
       amount: fee.amount,
       reference,
-      metadata: { userId: user.id, feeItemId: fee.id, matricNo: user.matricNo },
+      metadata: { userId: user.id, feeItemId: fee.id, idNumber: user.matricNo, role: user.role },
     });
   } catch {
     await prisma.payment.update({ where: { id: payment.id }, data: { status: "FAILED" } });

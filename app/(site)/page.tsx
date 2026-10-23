@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { date } from "@/lib/format";
 import { HeroArch } from "@/components/HeroArch";
 import { Ornament, SectionHeading } from "@/components/Ornament";
+import { SEGMENTS, SEGMENT_KEYS } from "@/lib/segments";
 
 export const dynamic = "force-dynamic";
 
@@ -271,6 +272,42 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ---------- MEMBERSHIP ---------- */}
+      <section className="py-24 sm:py-28">
+        <div className="container">
+          <div className="relative overflow-hidden rounded-[32px] border border-sand bg-parchment p-8 sm:p-12">
+            <div className="pattern-ink absolute inset-0 opacity-[0.04]" />
+            <div className="relative grid items-center gap-10 lg:grid-cols-2">
+              <div>
+                <SectionHeading
+                  eyebrow="Congregation"
+                  arabic="الجماعة"
+                  title="Are you part of our masjid? Become a registered member."
+                  lead="Members of the congregation can sign up online, join their segment and print a valid, QR-verifiable membership ID card."
+                />
+                <Link href="/membership" className="btn-primary mt-8">
+                  Explore membership <ArrowRight size={16} />
+                </Link>
+              </div>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {SEGMENT_KEYS.map((k) => (
+                  <li key={k}>
+                    <Link href={`/membership/join?segment=${k}`} className="flex items-center gap-4 rounded-2xl border border-sand bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-card">
+                      <span className="h-10 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: SEGMENTS[k].color }} />
+                      <span className="min-w-0 flex-1">
+                        <span className="block font-semibold">{SEGMENTS[k].label}</span>
+                        <span lang="ar" dir="rtl" className="block font-arabic text-[15px] text-gold-dark">{SEGMENTS[k].arabic}</span>
+                      </span>
+                      <ArrowRight size={16} className="text-ink-muted" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ---------- CTA ---------- */}
       <section className="relative overflow-hidden bg-emerald text-ivory">
