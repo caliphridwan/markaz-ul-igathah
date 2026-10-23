@@ -2,8 +2,8 @@ type Props = { size?: number; className?: string; tone?: "gold" | "ink" | "light
 
 /** Institutional crest: an eight-pointed khatam star enclosing an open book (Qur'an) beneath a crescent. */
 export function Crest({ size = 44, className = "", tone = "gold" }: Props) {
-  const stroke = tone === "ink" ? "#0F4C3A" : tone === "light" ? "#FBF8F1" : "#C9A24B";
-  const fill = tone === "ink" ? "#FBF8F1" : "#0F4C3A";
+  const stroke = tone === "ink" ? "#4A2C1A" : tone === "light" ? "#FBF8F1" : "#C9A24B";
+  const fill = tone === "ink" ? "#FBF8F1" : "#4A2C1A";
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" className={className} aria-hidden="true">
       <g fill={fill} stroke={stroke} strokeWidth="1.6" strokeLinejoin="round">

@@ -63,7 +63,7 @@ export function amountInWords(kobo: number) {
 export const statusStyles: Record<string, string> = {
   PENDING: "bg-gold/15 text-gold-dark ring-gold/30",
   ACTIVE: "bg-jade/10 text-jade ring-jade/30",
-  GRADUATED: "bg-emerald/10 text-emerald ring-emerald/30",
+  GRADUATED: "bg-gold/15 text-walnut ring-gold/40",
   SUSPENDED: "bg-red-50 text-red-700 ring-red-200",
   SUCCESS: "bg-jade/10 text-jade ring-jade/30",
   FAILED: "bg-red-50 text-red-700 ring-red-200",

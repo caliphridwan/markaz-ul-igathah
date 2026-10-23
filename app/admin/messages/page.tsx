@@ -16,7 +16,7 @@ export default async function AdminMessages() {
               <div>
                 <h3 className="text-xl">{m.subject}</h3>
                 <p className="text-[13px] text-ink-muted">
-                  {m.name} · <a href={`mailto:${m.email}`} className="text-emerald hover:underline">{m.email}</a>
+                  {m.name} · <a href={`mailto:${m.email}`} className="text-walnut hover:underline">{m.email}</a>
                   {m.phone && ` · ${m.phone}`} · {date(m.createdAt, { dateStyle: "medium", timeStyle: "short" })}
                 </p>
               </div>

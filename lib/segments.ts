@@ -15,7 +15,7 @@ export const SEGMENTS = {
     label: "Ibadur Rahman",
     arabic: "عباد الرحمن",
     code: "IBR",
-    color: "#0F4C3A",
+    color: "#1F6B4F",
     blurb: "“The servants of the Most Merciful” — the brothers' wing, active in da'wah, service and the life of the masjid.",
   },
   ZEENATUL_IGATHAH: {
@@ -36,8 +36,8 @@ export const SEGMENTS = {
     label: "Member",
     arabic: "عضو",
     code: "MEM",
-    color: "#1F7A5C",
-    blurb: "General members of the congregation who pray with us, support the Markaz and take part in its activities.",
+    color: "#4A2C1A",
+    blurb: "General members of the congregation who pray with us, support Markaz-ul-Igathah and take part in its activities.",
   },
 } as const;
 

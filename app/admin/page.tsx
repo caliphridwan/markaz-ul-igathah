@@ -51,7 +51,7 @@ export default async function AdminHome() {
         <section className="card p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl">Latest registrations</h2>
-            <Link href="/admin/students" className="text-sm font-semibold text-emerald hover:underline">All students</Link>
+            <Link href="/admin/students" className="text-sm font-semibold text-walnut hover:underline">All students</Link>
           </div>
           <ul className="mt-4 divide-y divide-sand">
             {latest.map((s) => (
@@ -69,7 +69,7 @@ export default async function AdminHome() {
         <section className="card p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl">Recent payments</h2>
-            <Link href="/admin/payments" className="text-sm font-semibold text-emerald hover:underline">All payments</Link>
+            <Link href="/admin/payments" className="text-sm font-semibold text-walnut hover:underline">All payments</Link>
           </div>
           <ul className="mt-4 divide-y divide-sand">
             {recentPayments.map((p) => (
@@ -78,7 +78,7 @@ export default async function AdminHome() {
                   <p className="truncate font-semibold">{fullName(p.user)}</p>
                   <p className="truncate text-[13px] text-ink-muted">{p.purpose} · {date(p.paidAt)}</p>
                 </div>
-                <p className="whitespace-nowrap font-display text-lg font-semibold text-emerald">{money(p.amount)}</p>
+                <p className="whitespace-nowrap font-display text-lg font-semibold text-walnut">{money(p.amount)}</p>
               </li>
             ))}
             {recentPayments.length === 0 && <li className="py-6 text-center text-sm text-ink-muted">No payments yet.</li>}

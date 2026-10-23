@@ -51,7 +51,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
             <h2 className="mt-2 text-2xl">{f.name}</h2>
             {f.description && <p className="mt-1 text-[14px] text-ink-muted">{f.description}</p>}
             <div className="mt-6 flex flex-1 items-end justify-between gap-4">
-              <p className="font-display text-3xl font-semibold text-emerald">{money(f.amount)}</p>
+              <p className="font-display text-3xl font-semibold text-walnut">{money(f.amount)}</p>
               {f.paymentId ? (
                 <Link href={`/dashboard/receipts/${f.paymentId}`} className="btn-ghost btn-sm">
                   <CheckCircle2 size={16} className="text-jade" /> Paid · Receipt
@@ -90,7 +90,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
                   <td className="whitespace-nowrap font-semibold">{money(p.amount)}</td>
                   <td><StatusBadge status={p.status} /></td>
                   <td className="text-right">
-                    {p.status === "SUCCESS" && <Link href={`/dashboard/receipts/${p.id}`} className="text-sm font-semibold text-emerald hover:underline">Receipt</Link>}
+                    {p.status === "SUCCESS" && <Link href={`/dashboard/receipts/${p.id}`} className="text-sm font-semibold text-walnut hover:underline">Receipt</Link>}
                   </td>
                 </tr>
               ))}

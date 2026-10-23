@@ -21,7 +21,7 @@ export default function ContactPage() {
           <div className="space-y-4 lg:col-span-5">
             {items.map((i) => (
               <div key={i.label} className="card flex gap-4 p-6">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-emerald text-gold-light"><i.icon size={20} /></span>
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-walnut text-gold-light"><i.icon size={20} /></span>
                 <div>
                   <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">{i.label}</p>
                   <p className="mt-1 text-[15.5px]">{i.value}</p>
@@ -32,7 +32,7 @@ export default function ContactPage() {
               <div className="pattern-ink absolute inset-0 opacity-10" />
               <div className="absolute inset-0 grid place-items-center text-center">
                 <div>
-                  <MapPin className="mx-auto text-emerald" size={32} />
+                  <MapPin className="mx-auto text-walnut" size={32} />
                   <p className="mt-2 text-sm text-ink-muted">Embed your Google Maps iframe here</p>
                 </div>
               </div>

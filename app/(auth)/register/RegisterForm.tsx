@@ -29,10 +29,10 @@ export function RegisterForm({
           ].map((o) => (
             <label
               key={o.v}
-              className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition ${entry === o.v ? "border-emerald bg-emerald/5 ring-4 ring-emerald/10" : "border-sand-dark/70 bg-white hover:border-emerald/40"}`}
+              className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition ${entry === o.v ? "border-walnut bg-walnut/5 ring-4 ring-walnut/10" : "border-sand-dark/70 bg-white hover:border-walnut/40"}`}
             >
               <input type="radio" name="entryType" value={o.v} checked={entry === o.v} onChange={() => setEntry(o.v)} className="sr-only" />
-              <span className={`grid h-11 w-11 place-items-center rounded-xl ${entry === o.v ? "bg-emerald text-gold-light" : "bg-parchment text-emerald"}`}>
+              <span className={`grid h-11 w-11 place-items-center rounded-xl ${entry === o.v ? "bg-walnut text-gold-light" : "bg-parchment text-walnut"}`}>
                 <o.icon size={20} />
               </span>
               <span>

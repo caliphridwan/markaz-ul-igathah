@@ -37,7 +37,10 @@ export function MobileNav({
                 {l.label}
               </Link>
             ))}
-            <div className="mt-5 flex gap-3">
+            <Link href="/donate" className="btn-gold mt-5">
+              Donate to the Markaz
+            </Link>
+            <div className="mt-3 flex gap-3">
               {loggedIn ? (
                 <Link href={portalHref} className="btn-primary flex-1">
                   My portal

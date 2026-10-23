@@ -16,8 +16,8 @@ export async function SiteHeader() {
   const session = await getSession();
   const portalHref = session?.role === "ADMIN" ? "/admin" : "/dashboard";
   return (
-    <header className="sticky top-0 z-40 border-b border-sand/70 bg-ivory/85 backdrop-blur-md">
-      <div className="hidden border-b border-sand/60 bg-emerald-900 text-[12.5px] text-ivory/70 md:block">
+    <header className="no-print sticky top-0 z-40 border-b border-sand/70 bg-ivory/85 backdrop-blur-md">
+      <div className="hidden border-b border-sand/60 bg-walnut-900 text-[12.5px] text-ivory/70 md:block">
         <div className="container flex h-9 items-center justify-between">
           <span>
             Admissions open for the <span className="text-gold-light">2026/2027</span> session
@@ -31,21 +31,24 @@ export async function SiteHeader() {
         <Link href="/" aria-label="Markaz-ul-Igathah — home">
           <Wordmark />
         </Link>
-        <nav className="hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Main">
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Main">
           {navLinks.map((l) => (
-            <Link key={l.href} href={l.href} className="text-[14px] font-semibold text-ink-soft transition hover:text-emerald">
+            <Link key={l.href} href={l.href} className="text-[14px] font-semibold text-ink-soft transition hover:text-walnut">
               {l.label}
             </Link>
           ))}
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
+          <Link href="/donate" className="btn-gold btn-sm">
+            Donate
+          </Link>
           {session ? (
             <Link href={portalHref} className="btn-primary btn-sm">
               My portal
             </Link>
           ) : (
             <>
-              <Link href="/login" className="text-[14px] font-semibold text-ink-soft hover:text-emerald">
+              <Link href="/login" className="hidden text-[14px] font-semibold text-ink-soft hover:text-walnut xl:inline">
                 Log in
               </Link>
               <Link href="/register" className="btn-primary btn-sm">

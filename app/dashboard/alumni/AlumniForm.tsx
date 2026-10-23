@@ -15,7 +15,7 @@ export function AlumniForm({ defaults, visible }: { defaults: Record<string, str
       <Field label="LinkedIn (optional)" name="linkedin" type="url" placeholder="https://linkedin.com/in/…" defaultValue={defaults.linkedin} state={state} />
       <TextArea label="Short bio" name="bio" maxLength={600} placeholder="What have you done since graduating? How can you help current students?" defaultValue={defaults.bio} state={state} className="sm:col-span-2" />
       <label className="flex items-center gap-3 sm:col-span-2">
-        <input type="checkbox" name="visible" defaultChecked={visible} className="h-5 w-5 rounded border-sand-dark accent-emerald" />
+        <input type="checkbox" name="visible" defaultChecked={visible} className="h-5 w-5 rounded border-sand-dark accent-walnut" />
         <span className="text-[14.5px]">Show my profile on the public alumni wall</span>
       </label>
       <div className="sm:col-span-2"><FormMessage state={state} /></div>

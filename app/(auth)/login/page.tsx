@@ -16,9 +16,9 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <LoginForm next={next} demo={isDemoLoginEnabled() ? { accounts: demoAccounts, password: DEMO_PASSWORD } : null} />
       <p className="mt-8 text-center text-sm text-ink-muted">
         New to the Markaz?{" "}
-        <Link href="/register" className="font-semibold text-emerald hover:underline">Apply as a student</Link>
+        <Link href="/register" className="font-semibold text-walnut hover:underline">Apply as a student</Link>
         <span className="mx-2 text-sand-dark">·</span>
-        <Link href="/membership/join" className="font-semibold text-emerald hover:underline">Join as a member</Link>
+        <Link href="/membership/join" className="font-semibold text-walnut hover:underline">Join as a member</Link>
       </p>
     </div>
   );

@@ -46,7 +46,7 @@ export default async function AdminMembers({ searchParams }: { searchParams: Pro
           <Link
             key={k}
             href={segment === k ? "/admin/members" : `/admin/members?segment=${k}`}
-            className={`card overflow-hidden p-4 transition hover:shadow-lift ${segment === k ? "ring-2 ring-emerald" : ""}`}
+            className={`card overflow-hidden p-4 transition hover:shadow-lift ${segment === k ? "ring-2 ring-walnut" : ""}`}
           >
             <span className="mb-2 block h-1.5 w-10 rounded-full" style={{ backgroundColor: SEGMENTS[k].color }} />
             <p className="font-display text-3xl font-semibold leading-none">{countOf(k)}</p>
@@ -83,7 +83,7 @@ export default async function AdminMembers({ searchParams }: { searchParams: Pro
                 <tr key={m.id}>
                   <td>
                     <div className="flex items-center gap-3">
-                      <div className="arch h-11 w-9 shrink-0 overflow-hidden" style={{ backgroundColor: seg?.color ?? "#0F4C3A" }}>
+                      <div className="arch h-11 w-9 shrink-0 overflow-hidden" style={{ backgroundColor: seg?.color ?? "#4A2C1A" }}>
                         {m.photo ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={m.photo} alt="" className="h-full w-full object-cover" />
@@ -124,7 +124,7 @@ export default async function AdminMembers({ searchParams }: { searchParams: Pro
       </div>
       <p className="mt-3 text-[12.5px] text-ink-muted">
         Approving a member (status: active) unlocks their ID card. Paying dues marked &ldquo;activates account&rdquo; approves them automatically.{" "}
-        <Link href="/admin/members" className="text-emerald hover:underline">Clear filters</Link>
+        <Link href="/admin/members" className="text-walnut hover:underline">Clear filters</Link>
       </p>
     </>
   );

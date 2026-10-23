@@ -41,7 +41,7 @@ export default async function AlumniPage() {
               {alumni.map((a) => (
                 <article key={a.id} className="card flex flex-col p-7">
                   <div className="flex items-center gap-4">
-                    <div className="arch h-16 w-14 shrink-0 overflow-hidden bg-emerald">
+                    <div className="arch h-16 w-14 shrink-0 overflow-hidden bg-walnut">
                       {a.user.photo ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={a.user.photo} alt="" className="h-full w-full object-cover" />
@@ -59,7 +59,7 @@ export default async function AlumniPage() {
                     {a.occupation && <span className="flex items-center gap-1.5"><Briefcase size={14} />{a.occupation}</span>}
                     {a.location && <span className="flex items-center gap-1.5"><MapPin size={14} />{a.location}</span>}
                     {a.linkedin && (
-                      <a href={a.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-jade hover:underline">
+                      <a href={a.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-walnut hover:underline">
                         <Linkedin size={14} />LinkedIn
                       </a>
                     )}

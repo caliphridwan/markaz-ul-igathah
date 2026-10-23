@@ -52,7 +52,7 @@ export default async function MembershipPage() {
                     <p className="mt-3 flex-1 text-[14.5px] leading-relaxed text-ink-muted">{s.blurb}</p>
                     <div className="mt-6 flex items-center justify-between border-t border-sand pt-5">
                       <span className="text-[13px] text-ink-muted">{countOf(k)} active member{countOf(k) === 1 ? "" : "s"}</span>
-                      <Link href={`/membership/join?segment=${k}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald transition-all group-hover:gap-2.5">
+                      <Link href={`/membership/join?segment=${k}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-walnut transition-all group-hover:gap-2.5">
                         Join <ArrowRight size={15} />
                       </Link>
                     </div>
@@ -71,9 +71,9 @@ export default async function MembershipPage() {
             <ol className="mt-10 space-y-6">
               {steps.map((s, i) => (
                 <li key={s.title} className="flex gap-5">
-                  <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full border border-gold bg-ivory text-emerald">
+                  <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full border border-gold bg-ivory text-walnut">
                     <s.icon size={20} />
-                    <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-emerald text-[10px] font-bold text-ivory">{i + 1}</span>
+                    <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-walnut text-[10px] font-bold text-ivory">{i + 1}</span>
                   </span>
                   <div>
                     <h3 className="text-[1.4rem]">{s.title}</h3>
@@ -95,7 +95,7 @@ export default async function MembershipPage() {
                         <p className="font-semibold">{f.name}</p>
                         <p className="text-[13px] text-ink-muted">{f.segment ? SEGMENTS[f.segment].label : "All segments"} · {f.session}</p>
                       </td>
-                      <td className="whitespace-nowrap text-right font-display text-lg font-semibold text-emerald">{money(f.amount)}</td>
+                      <td className="whitespace-nowrap text-right font-display text-lg font-semibold text-walnut">{money(f.amount)}</td>
                     </tr>
                   ))}
                   {dues.length === 0 && <tr><td className="text-center text-ink-muted">No dues are currently set.</td></tr>}

@@ -18,7 +18,7 @@ export default async function AdminPayments({ searchParams }: { searchParams: Pr
   return (
     <>
       <PortalHeader title="Payments" arabic="المدفوعات">
-        <span className="rounded-full bg-emerald px-4 py-2 text-sm font-semibold text-ivory">Collected: {money(sum._sum.amount ?? 0)}</span>
+        <span className="rounded-full bg-walnut px-4 py-2 text-sm font-semibold text-ivory">Collected: {money(sum._sum.amount ?? 0)}</span>
       </PortalHeader>
       <div className="mb-5 flex flex-wrap gap-2">
         {[undefined, ...STATUSES].map((s) => (
@@ -43,7 +43,7 @@ export default async function AdminPayments({ searchParams }: { searchParams: Pr
                 <td className="font-mono text-[12px] text-ink-muted">{p.reference}<br />{p.receiptNo}</td>
                 <td className="whitespace-nowrap font-semibold">{money(p.amount)}</td>
                 <td><StatusBadge status={p.status} /></td>
-                <td>{p.status === "SUCCESS" && <Link href={`/dashboard/receipts/${p.id}`} className="text-sm font-semibold text-emerald hover:underline">Receipt</Link>}</td>
+                <td>{p.status === "SUCCESS" && <Link href={`/dashboard/receipts/${p.id}`} className="text-sm font-semibold text-walnut hover:underline">Receipt</Link>}</td>
               </tr>
             ))}
             {payments.length === 0 && <tr><td colSpan={7} className="py-12 text-center text-ink-muted">No payments.</td></tr>}

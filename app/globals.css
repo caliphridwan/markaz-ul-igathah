@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --khatam-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23C9A24B' stroke-width='1'%3E%3Cpath d='M40 16 64 40 40 64 16 40Z'/%3E%3Cpath d='M23 23H57V57H23Z'/%3E%3Ccircle cx='40' cy='40' r='7'/%3E%3Cpath d='M0 0 23 23M80 0 57 23M0 80 23 57M80 80 57 57M40 0V16M40 64V80M0 40H16M64 40H80'/%3E%3C/g%3E%3C/svg%3E");
-    --khatam-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%230F4C3A' stroke-width='1'%3E%3Cpath d='M40 16 64 40 40 64 16 40Z'/%3E%3Cpath d='M23 23H57V57H23Z'/%3E%3Ccircle cx='40' cy='40' r='7'/%3E%3Cpath d='M0 0 23 23M80 0 57 23M0 80 23 57M80 80 57 57M40 0V16M40 64V80M0 40H16M64 40H80'/%3E%3C/g%3E%3C/svg%3E");
+    --khatam-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%234A2C1A' stroke-width='1'%3E%3Cpath d='M40 16 64 40 40 64 16 40Z'/%3E%3Cpath d='M23 23H57V57H23Z'/%3E%3Ccircle cx='40' cy='40' r='7'/%3E%3Cpath d='M0 0 23 23M80 0 57 23M0 80 23 57M80 80 57 57M40 0V16M40 64V80M0 40H16M64 40H80'/%3E%3C/g%3E%3C/svg%3E");
   }
 
   html {
@@ -56,7 +56,7 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition duration-200 disabled:cursor-not-allowed disabled:opacity-60;
   }
   .btn-primary {
-    @apply btn bg-emerald text-ivory shadow-[inset_0_-2px_0_rgba(0,0,0,.2)] hover:bg-emerald-700;
+    @apply btn bg-walnut text-ivory shadow-[inset_0_-2px_0_rgba(0,0,0,.2)] hover:bg-walnut-700;
   }
   .btn-gold {
     @apply btn bg-gold text-ink shadow-[inset_0_-2px_0_rgba(0,0,0,.15)] hover:bg-gold-light;
@@ -82,7 +82,7 @@
     @apply mb-1.5 block text-[13px] font-semibold text-ink-soft;
   }
   .input {
-    @apply block w-full rounded-xl border border-sand-dark/70 bg-white px-4 py-3 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(10,31,26,.04)] transition placeholder:text-ink-muted/60 focus:border-jade focus:outline-none focus:ring-4 focus:ring-jade/10;
+    @apply block w-full rounded-xl border border-sand-dark/70 bg-white px-4 py-3 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(36,21,12,.05)] transition placeholder:text-ink-muted/60 focus:border-walnut focus:outline-none focus:ring-4 focus:ring-gold/20;
   }
   .input-error {
     @apply border-red-400 focus:border-red-500 focus:ring-red-100;

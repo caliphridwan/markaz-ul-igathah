@@ -8,7 +8,8 @@ Next.js 15 (App Router) · TypeScript · Tailwind CSS · Prisma · PostgreSQL ·
 - Public site: Home, About, Programmes, Admissions (live fee schedule), Alumni wall, Contact, QR verification pages
 - Student portal: register / log in, auto matric number (`MUI/2026/0001`), pay fees via Paystack, instant receipts with QR, printable CR80 ID card (front & back), alumni profile, profile & passport photo, password change
 - Congregation membership: masjid members sign up at `/membership/join` into one of five segments — Elders, Ibadur Rahman, Zeenatul Igathah, Fatayaatul Igathah, Member — get a membership number (`MUI/IBR/2026/0001`), pay dues and print a segment-coloured membership ID card
-- Admin: overview stats, members by segment, student management (approve / graduate / suspend), payments ledger, fee items, announcements, contact inbox
+- Donations: public `/donate` page (no account needed) with causes and progress bars, preset or custom amounts, anonymous option, Paystack or bank transfer, printable donation receipt with QR, donor wall
+- Admin: overview stats, members by segment, donations & causes, student management (approve / graduate / suspend), payments ledger, fee items, announcements, contact inbox
 
 The full product brief used to build this is in [`PROMPT.md`](./PROMPT.md).
 
@@ -73,6 +74,7 @@ Option B — manual (same as AlFawz):
 
 - Institution details (address, phone, email, founding year, Mudir, stats): `lib/site.ts`
 - Membership segments (names, Arabic, colours, descriptions, number codes): `lib/segments.ts`
+- Bank transfer details for donations: `bank` in `lib/site.ts`; donation causes: Admin → Donations
 - Colours & fonts: `tailwind.config.ts`, `app/layout.tsx`
 - Programmes & fees: seed file `prisma/seed.mjs`, or manage fees live from `/admin/fees`
 - Contact map: replace the placeholder in `app/(site)/contact/page.tsx` with a Google Maps iframe

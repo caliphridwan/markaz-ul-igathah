@@ -63,7 +63,7 @@ export default async function AdminStudents({ searchParams }: { searchParams: Pr
               <tr key={s.id}>
                 <td>
                   <div className="flex items-center gap-3">
-                    <div className="arch h-11 w-9 shrink-0 overflow-hidden bg-emerald">
+                    <div className="arch h-11 w-9 shrink-0 overflow-hidden bg-walnut">
                       {s.photo ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={s.photo} alt="" className="h-full w-full object-cover" />
@@ -97,7 +97,7 @@ export default async function AdminStudents({ searchParams }: { searchParams: Pr
           </tbody>
         </table>
       </div>
-      <p className="mt-3 text-[12.5px] text-ink-muted">Showing up to 100 students. <Link href="/admin/students" className="text-emerald hover:underline">Clear filters</Link></p>
+      <p className="mt-3 text-[12.5px] text-ink-muted">Showing up to 100 students. <Link href="/admin/students" className="text-walnut hover:underline">Clear filters</Link></p>
     </>
   );
 }

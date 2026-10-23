@@ -12,7 +12,7 @@ export function AnnouncementForm() {
       <Field label="Title" name="title" required state={state} />
       <TextArea label="Message" name="body" required state={state} />
       <label className="flex items-center gap-3 text-[14px]">
-        <input type="checkbox" name="pinned" className="h-5 w-5 accent-emerald" />
+        <input type="checkbox" name="pinned" className="h-5 w-5 accent-walnut" />
         Pin to the top
       </label>
       <FormMessage state={state} />

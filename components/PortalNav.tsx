@@ -18,6 +18,7 @@ import {
   X,
   LogOut,
   Globe,
+  HandHeart,
   type LucideIcon,
 } from "lucide-react";
 import { logoutAction } from "@/app/actions/auth";
@@ -34,6 +35,7 @@ const icons: Record<string, LucideIcon> = {
   fees: Wallet,
   announcements: Megaphone,
   messages: Inbox,
+  donations: HandHeart,
 };
 
 export type NavItem = { href: string; label: string; icon: keyof typeof icons; badge?: number };
@@ -100,12 +102,12 @@ export function PortalNav({ items, user }: { items: NavItem[]; user: { name: str
 
   return (
     <>
-      <aside className="no-print fixed inset-y-0 left-0 z-30 hidden w-[272px] overflow-y-auto bg-emerald-900 lg:block">
+      <aside className="no-print fixed inset-y-0 left-0 z-30 hidden w-[272px] overflow-y-auto bg-walnut-900 lg:block">
         <div className="pattern-gold pointer-events-none absolute inset-0 opacity-[0.04]" />
         <div className="relative h-full">{nav}</div>
       </aside>
 
-      <div className="no-print sticky top-0 z-30 flex h-16 items-center justify-between border-b border-ivory/10 bg-emerald-900 px-4 lg:hidden">
+      <div className="no-print sticky top-0 z-30 flex h-16 items-center justify-between border-b border-ivory/10 bg-walnut-900 px-4 lg:hidden">
         <Link href="/"><Wordmark tone="light" /></Link>
         <button onClick={() => setOpen(true)} className="grid h-10 w-10 place-items-center rounded-full border border-ivory/20 text-ivory" aria-label="Open menu">
           <Menu size={20} />
@@ -114,7 +116,7 @@ export function PortalNav({ items, user }: { items: NavItem[]; user: { name: str
       {open && (
         <div className="no-print fixed inset-0 z-50 lg:hidden">
           <button className="absolute inset-0 bg-ink/60" onClick={() => setOpen(false)} aria-label="Close menu" />
-          <div className="absolute inset-y-0 left-0 w-[284px] overflow-y-auto bg-emerald-900 shadow-lift">
+          <div className="absolute inset-y-0 left-0 w-[284px] overflow-y-auto bg-walnut-900 shadow-lift">
             <button onClick={() => setOpen(false)} className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full text-ivory/70" aria-label="Close menu">
               <X size={18} />
             </button>

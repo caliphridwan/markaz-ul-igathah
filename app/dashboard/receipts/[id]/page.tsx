@@ -21,7 +21,7 @@ export default async function ReceiptPage({ params, searchParams }: { params: Pr
   return (
     <>
       <div className="no-print mb-6 flex flex-wrap items-center justify-between gap-4">
-        <Link href="/dashboard/receipts" className="inline-flex items-center gap-2 text-sm font-semibold text-ink-muted hover:text-emerald">
+        <Link href="/dashboard/receipts" className="inline-flex items-center gap-2 text-sm font-semibold text-ink-muted hover:text-walnut">
           <ArrowLeft size={16} /> All receipts
         </Link>
         <PrintButton />

@@ -78,6 +78,7 @@ model User {
   programme     Programme?     @relation(fields: [programmeId], references: [id])
   payments      Payment[]
   alumni        AlumniProfile?
+  donations     Donation[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
@@ -170,4 +171,40 @@ model ContactMessage {
 model Counter {
   id    String @id
   value Int    @default(0)
+}
+
+model DonationCause {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  title       String
+  arabicTitle String?
+  summary     String
+  goal        Int? // kobo; null = open-ended
+  active      Boolean    @default(true)
+  order       Int        @default(0)
+  donations   Donation[]
+  createdAt   DateTime   @default(now())
+}
+
+model Donation {
+  id        String         @id @default(cuid())
+  causeId   String?
+  cause     DonationCause? @relation(fields: [causeId], references: [id], onDelete: SetNull)
+  userId    String?
+  user      User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  donorName String
+  email     String
+  phone     String?
+  anonymous Boolean        @default(false)
+  message   String?
+  amount    Int // kobo
+  reference String         @unique
+  status    PaymentStatus  @default(PENDING)
+  channel   String?
+  receiptNo String?        @unique
+  paidAt    DateTime?
+  createdAt DateTime       @default(now())
+
+  @@index([status])
+  @@index([causeId, status])
 }

@@ -27,7 +27,7 @@ export default async function ReceiptsPage() {
                 <p className="font-mono text-[12px] text-ink-muted">{r.receiptNo}</p>
                 <h2 className="mt-3 text-xl leading-snug">{r.purpose}</h2>
                 <div className="mt-6 flex items-end justify-between">
-                  <p className="font-display text-2xl font-semibold text-emerald">{money(r.amount)}</p>
+                  <p className="font-display text-2xl font-semibold text-walnut">{money(r.amount)}</p>
                   <p className="text-[13px] text-ink-muted">{date(r.paidAt)}</p>
                 </div>
               </div>

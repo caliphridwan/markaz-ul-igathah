@@ -9,19 +9,25 @@ export const site = {
   tagline: "A House of Qur'an, Arabic & Islamic Learning",
   description:
     "Markaz-ul-Igathah is an Arabic and Islamic institution nurturing huffadh, scholars and upright citizens through authentic knowledge, sincere character and excellence in service.",
-  founded: 2009, // TODO: confirm founding year
+  founded: 2001, // TODO: confirm founding year
   currentSession: "2026/2027",
-  address: "No. 12 Markaz Road, Off Ring Road, Ilorin, Kwara State, Nigeria", // TODO
+  address: "No.1 Markaz Street, Aparadija, Adeleye, Ado-Odo Ota Ogun State, Nigeria", // TODO
   phone: "+234 800 000 0000", // TODO
   email: "info@markazuligathah.org", // TODO
   hours: "Sat – Thu · 7:30am – 5:00pm",
-  mudir: { name: "Sheikh Abdulkareem Al-Igathy", title: "Mudir (Director)" }, // TODO
+  mudir: { name: "Sheikh Qamarudeen Alim Akinola", title: "Mudir (Director)" }, // TODO
   registrar: "Registrar, Markaz-ul-Igathah",
   socials: {
     facebook: "#", // TODO
     instagram: "#",
     youtube: "#",
     whatsapp: "#",
+  },
+  // Shown on /donate for donors who prefer bank transfer — TODO: replace with the Markaz's real account
+  bank: {
+    bankName: "Bank name",
+    accountName: "Markaz-ul-Igathah",
+    accountNumber: "0000000000",
   },
   stats: [
     { value: "1,200+", label: "Students taught" },

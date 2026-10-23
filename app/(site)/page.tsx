@@ -45,7 +45,7 @@ export default async function HomePage() {
           <div className="reveal lg:col-span-7">
             <span className="eyebrow">An Arabic & Islamic Institution</span>
             <h1 className="display mt-6">
-              Where the Qur&apos;an is <em className="font-medium italic text-emerald">carried</em>, and character is <em className="font-medium italic text-emerald">formed</em>.
+              Where the Qur&apos;an is <em className="font-medium italic text-walnut">carried</em>, and character is <em className="font-medium italic text-walnut">formed</em>.
             </h1>
             <p className="mt-7 max-w-xl text-[18px] leading-relaxed text-ink-muted">
               {site.name} raises huffadh, Arabic scholars and upright citizens through authentic, sanad-connected learning — in a home that remains yours long after graduation.
@@ -59,7 +59,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="mt-12 flex items-center gap-5 border-t border-sand pt-7">
-              <p lang="ar" dir="rtl" className="font-arabic text-[22px] text-emerald">
+              <p lang="ar" dir="rtl" className="font-arabic text-[22px] text-walnut">
                 خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ
               </p>
               <span className="hidden h-8 w-px bg-sand sm:block" />
@@ -80,7 +80,7 @@ export default async function HomePage() {
           <div className="grid grid-cols-2 divide-sand overflow-hidden rounded-3xl border border-sand bg-white shadow-card md:grid-cols-4 md:divide-x">
             {site.stats.map((s) => (
               <div key={s.label} className="px-6 py-8 text-center">
-                <p className="font-display text-[2.7rem] font-semibold leading-none text-emerald">{s.value}</p>
+                <p className="font-display text-[2.7rem] font-semibold leading-none text-walnut">{s.value}</p>
                 <p className="mt-2 text-[12.5px] font-bold uppercase tracking-[0.16em] text-ink-muted">{s.label}</p>
               </div>
             ))}
@@ -93,7 +93,7 @@ export default async function HomePage() {
         <div className="container grid items-center gap-16 lg:grid-cols-2">
           <div className="relative order-2 lg:order-1">
             <div className="grid grid-cols-2 gap-5">
-              <div className="arch relative aspect-[3/4] overflow-hidden bg-emerald">
+              <div className="arch relative aspect-[3/4] overflow-hidden bg-walnut">
                 <div className="pattern-gold absolute inset-0 opacity-25" />
                 <p lang="ar" dir="rtl" className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-ruqaa text-5xl text-gold-light">
                   اقرأ
@@ -102,12 +102,12 @@ export default async function HomePage() {
               <div className="mt-14 space-y-5">
                 <div className="arch relative aspect-[3/4] overflow-hidden bg-gold/90">
                   <div className="pattern-ink absolute inset-0 opacity-20" />
-                  <p lang="ar" dir="rtl" className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-ruqaa text-5xl text-emerald-900">
+                  <p lang="ar" dir="rtl" className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-ruqaa text-5xl text-walnut-900">
                     علم
                   </p>
                 </div>
                 <div className="rounded-2xl border border-sand bg-parchment p-5">
-                  <p className="font-display text-4xl font-semibold text-emerald">{new Date().getFullYear() - site.founded}+</p>
+                  <p className="font-display text-4xl font-semibold text-walnut">{new Date().getFullYear() - site.founded}+</p>
                   <p className="text-sm text-ink-muted">years of teaching, mentoring and service</p>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default async function HomePage() {
             <SectionHeading
               eyebrow="About the Markaz"
               arabic="من نحن"
-              title={<>A house of learning, built on <em className="italic text-emerald">ikhlas</em> and <em className="italic text-emerald">itqan</em>.</>}
+              title={<>A house of learning, built on <em className="italic text-walnut">ikhlas</em> and <em className="italic text-walnut">itqan</em>.</>}
               lead={`Founded in ${site.founded}, ${site.name} began as a small halaqah of Qur'an students and has grown into a full institution of Qur'an, Arabic and Islamic sciences — without losing the intimacy of a teacher who knows every student by name.`}
             />
             <ul className="mt-8 space-y-4">
@@ -127,7 +127,7 @@ export default async function HomePage() {
                 </li>
               ))}
             </ul>
-            <Link href="/about" className="mt-9 inline-flex items-center gap-2 font-semibold text-emerald hover:gap-3 transition-all">
+            <Link href="/about" className="mt-9 inline-flex items-center gap-2 font-semibold text-walnut hover:gap-3 transition-all">
               Read our story <ArrowRight size={17} />
             </Link>
           </div>
@@ -135,7 +135,7 @@ export default async function HomePage() {
       </section>
 
       {/* ---------- PROGRAMMES ---------- */}
-      <section className="relative overflow-hidden bg-emerald-900 py-24 text-ivory sm:py-32">
+      <section className="relative overflow-hidden bg-walnut-900 py-24 text-ivory sm:py-32">
         <div className="pattern-gold absolute inset-0 opacity-[0.06]" />
         <div className="container relative">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
@@ -149,7 +149,7 @@ export default async function HomePage() {
               <Link
                 key={p.id}
                 href={`/programmes#${p.slug}`}
-                className="group relative overflow-hidden rounded-[28px] border border-ivory/10 bg-emerald-800/60 p-7 transition duration-300 hover:-translate-y-1 hover:border-gold/40 hover:bg-emerald-800"
+                className="group relative overflow-hidden rounded-[28px] border border-ivory/10 bg-walnut-800/60 p-7 transition duration-300 hover:-translate-y-1 hover:border-gold/40 hover:bg-walnut-800"
               >
                 <div className="flex items-start justify-between">
                   <span className="font-display text-5xl font-semibold text-gold/30">{String(i + 1).padStart(2, "0")}</span>
@@ -179,7 +179,7 @@ export default async function HomePage() {
             {pillars.map((p) => (
               <div key={p.title} className="card group p-7 transition hover:-translate-y-1 hover:shadow-lift">
                 <div className="flex items-center justify-between">
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-emerald text-gold-light">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-walnut text-gold-light">
                     <p.icon size={22} />
                   </span>
                   <span lang="ar" dir="rtl" className="font-arabic text-xl text-gold-dark">
@@ -203,9 +203,9 @@ export default async function HomePage() {
           <ol className="relative grid gap-8 md:grid-cols-4">
             {steps.map((s, i) => (
               <li key={s.title} className="relative">
-                <span className="relative grid h-14 w-14 place-items-center rounded-full border border-gold bg-ivory text-emerald shadow-card">
+                <span className="relative grid h-14 w-14 place-items-center rounded-full border border-gold bg-ivory text-walnut shadow-card">
                   <s.icon size={22} />
-                  <span className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-emerald text-[11px] font-bold text-ivory">{i + 1}</span>
+                  <span className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-walnut text-[11px] font-bold text-ivory">{i + 1}</span>
                 </span>
                 <h3 className="mt-6 text-[1.45rem]">{s.title}</h3>
                 <p className="mt-2 text-[14.5px] text-ink-muted">{s.body}</p>
@@ -227,7 +227,7 @@ export default async function HomePage() {
           <div className="relative mx-auto max-w-4xl text-center">
             <Quote size={44} className="mx-auto text-gold" />
             <blockquote className="mt-8 font-display text-[1.9rem] font-medium leading-snug text-ink sm:text-[2.4rem]">
-              &ldquo;Our aim is not only to fill hearts with the words of Allah, but to raise people whose conduct makes those words visible. Every student who leaves us should be a source of <em className="text-emerald">ighathah</em> — relief — for those around them.&rdquo;
+              &ldquo;Our aim is not only to fill hearts with the words of Allah, but to raise people whose conduct makes those words visible. Every student who leaves us should be a source of <em className="text-walnut">ighathah</em> — relief — for those around them.&rdquo;
             </blockquote>
             <Ornament className="mt-10" />
             <p className="mt-6 font-semibold">{site.mudir.name}</p>
@@ -310,7 +310,7 @@ export default async function HomePage() {
       </section>
 
       {/* ---------- CTA ---------- */}
-      <section className="relative overflow-hidden bg-emerald text-ivory">
+      <section className="relative overflow-hidden bg-walnut text-ivory">
         <div className="pattern-gold absolute inset-0 opacity-[0.08]" />
         <div className="container relative flex flex-col items-center py-24 text-center">
           <p lang="ar" dir="rtl" className="font-ruqaa text-4xl text-gold-light sm:text-5xl">
@@ -322,8 +322,8 @@ export default async function HomePage() {
             <Link href="/register" className="btn-gold px-8 py-3.5">
               Apply now <ArrowRight size={17} />
             </Link>
-            <Link href="/contact" className="btn-outline-light px-8 py-3.5">
-              Speak to the Registry
+            <Link href="/donate" className="btn-outline-light px-8 py-3.5">
+              Support Markaz-ul-Igathah
             </Link>
           </div>
         </div>

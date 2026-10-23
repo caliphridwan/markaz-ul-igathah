@@ -62,7 +62,7 @@ export default async function AdmissionsPage() {
                         <p className="font-semibold">{f.name}</p>
                         {f.description && <p className="text-[13px] text-ink-muted">{f.description}</p>}
                       </td>
-                      <td className="whitespace-nowrap text-right font-display text-lg font-semibold text-emerald">{money(f.amount)}</td>
+                      <td className="whitespace-nowrap text-right font-display text-lg font-semibold text-walnut">{money(f.amount)}</td>
                     </tr>
                   ))}
                   {fees.length === 0 && <tr><td colSpan={2} className="text-center text-ink-muted">Fee schedule will be published soon.</td></tr>}

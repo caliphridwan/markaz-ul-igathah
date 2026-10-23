@@ -1,6 +1,6 @@
 export function PageHero({ eyebrow, arabic, title, lead }: { eyebrow: string; arabic: string; title: React.ReactNode; lead?: string }) {
   return (
-    <section className="relative overflow-hidden bg-emerald-800 text-ivory">
+    <section className="relative overflow-hidden bg-walnut-800 text-ivory">
       <div className="pattern-gold absolute inset-0 opacity-[0.07]" />
       <div className="absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full border border-gold/15" />
       <div className="absolute -right-10 -top-10 h-[300px] w-[300px] rounded-full border border-gold/10" />

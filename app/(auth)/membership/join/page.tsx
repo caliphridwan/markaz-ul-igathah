@@ -15,9 +15,9 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
       <p className="mt-2 text-ink-muted">Your membership number is issued immediately. Once confirmed, you can print your membership ID card from your portal.</p>
       <JoinForm initialSegment={initial} />
       <p className="mt-8 text-center text-sm text-ink-muted">
-        Already a member? <Link href="/login" className="font-semibold text-emerald hover:underline">Log in</Link>
+        Already a member? <Link href="/login" className="font-semibold text-walnut hover:underline">Log in</Link>
         <span className="mx-2 text-sand-dark">·</span>
-        Applying to study? <Link href="/register" className="font-semibold text-emerald hover:underline">Student admission</Link>
+        Applying to study? <Link href="/register" className="font-semibold text-walnut hover:underline">Student admission</Link>
       </p>
     </div>
   );

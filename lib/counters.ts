@@ -30,3 +30,9 @@ export async function nextMemberNo(tx: Tx, code: string) {
   const n = await nextValue(tx, `member-${code}-${year}`);
   return `MUI/${code}/${year}/${String(n).padStart(4, "0")}`;
 }
+
+export async function nextDonationReceiptNo(tx: Tx) {
+  const year = new Date().getFullYear();
+  const n = await nextValue(tx, `donation-${year}`);
+  return `MUI-DON-${year}-${String(n).padStart(6, "0")}`;
+}

@@ -40,7 +40,7 @@ export function IdCardFront({ s }: { s: Student }) {
     <div className={`${shell} flex flex-col bg-ivory`}>
       <div className="pattern-ink absolute inset-0 opacity-[0.05]" style={{ backgroundSize: "6em 6em" }} />
       {/* header */}
-      <div className="relative flex h-[7.2em] shrink-0 items-center gap-[1.2em] bg-emerald px-[2em] text-ivory">
+      <div className="relative flex h-[7.2em] shrink-0 items-center gap-[1.2em] bg-walnut px-[2em] text-ivory">
         <div className="pattern-gold absolute inset-0 opacity-[0.12]" style={{ backgroundSize: "6em 6em" }} />
         <Crest size={44} className="relative h-[4.8em] w-[4.8em]" />
         <div className="relative flex-1 leading-none">
@@ -67,12 +67,12 @@ export function IdCardFront({ s }: { s: Student }) {
           <span className={label}>Name</span>
           <p className="mt-[0.2em] line-clamp-2 font-display text-[2.15em] font-bold leading-[1.08] text-ink">{name}</p>
           {s.arabicName && (
-            <p lang="ar" dir="rtl" className="truncate text-right font-arabic text-[1.55em] leading-[1.3] text-emerald">{s.arabicName}</p>
+            <p lang="ar" dir="rtl" className="truncate text-right font-arabic text-[1.55em] leading-[1.3] text-walnut">{s.arabicName}</p>
           )}
           <dl className="mt-[0.8em] grid grid-cols-2 gap-x-[1.5em] gap-y-[0.65em]">
             <div className="col-span-2">
               <dt className={label}>{isMember ? "Membership no." : "Matric no."}</dt>
-              <dd className="mt-[0.2em] font-mono text-[1.6em] font-bold leading-[1.2] tracking-wide text-emerald">{s.matricNo}</dd>
+              <dd className="mt-[0.2em] font-mono text-[1.6em] font-bold leading-[1.2] tracking-wide text-walnut">{s.matricNo}</dd>
             </div>
             <div className="col-span-2 min-w-0">
               <dt className={label}>{isMember ? "Segment" : "Programme"}</dt>
@@ -99,7 +99,7 @@ export function IdCardFront({ s }: { s: Student }) {
 
       {/* footer strip — in normal flow, so content can never sit underneath it */}
       <div
-        className="relative flex h-[2.4em] shrink-0 items-center justify-between bg-emerald-900 px-[2em] text-[1em] font-semibold uppercase tracking-[0.2em] text-gold-light"
+        className="relative flex h-[2.4em] shrink-0 items-center justify-between bg-walnut-900 px-[2em] text-[1em] font-semibold uppercase tracking-[0.2em] text-gold-light"
         style={seg ? { backgroundColor: seg.color } : undefined}
       >
         <span>{isMember ? `${seg?.label ?? "Member"} · Valid ${new Date().getFullYear()}` : `Valid · ${s.session} session`}</span>
@@ -111,7 +111,7 @@ export function IdCardFront({ s }: { s: Student }) {
 
 export function IdCardBack({ qr, s }: { qr: string; s: Student }) {
   return (
-    <div className={`${shell} bg-emerald-800 text-ivory`}>
+    <div className={`${shell} bg-walnut-800 text-ivory`}>
       <div className="pattern-gold absolute inset-0 opacity-[0.1]" style={{ backgroundSize: "6em 6em" }} />
       <div className="relative flex h-full gap-[2.2em] p-[2.2em]">
         <div className="flex shrink-0 flex-col items-center">

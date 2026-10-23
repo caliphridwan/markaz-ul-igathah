@@ -16,7 +16,7 @@ export function FeeForm({ programmes, segments, session }: { programmes: Opt[]; 
         <legend className="label">Charged to</legend>
         <div className="grid grid-cols-2 gap-2">
           {(["STUDENT", "MEMBER"] as const).map((a) => (
-            <label key={a} className={`cursor-pointer rounded-xl border px-3 py-2.5 text-center text-sm font-semibold transition ${audience === a ? "border-emerald bg-emerald text-ivory" : "border-sand bg-white text-ink-soft"}`}>
+            <label key={a} className={`cursor-pointer rounded-xl border px-3 py-2.5 text-center text-sm font-semibold transition ${audience === a ? "border-walnut bg-walnut text-ivory" : "border-sand bg-white text-ink-soft"}`}>
               <input type="radio" name="audience" value={a} checked={audience === a} onChange={() => setAudience(a)} className="sr-only" />
               {a === "STUDENT" ? "Students" : "Members"}
             </label>
@@ -33,7 +33,7 @@ export function FeeForm({ programmes, segments, session }: { programmes: Opt[]; 
         <SelectField key="seg" label="Segment" name="segment" placeholder="All segments" options={segments} state={state} />
       )}
       <label className="flex items-center gap-3 text-[14px]">
-        <input type="checkbox" name="activatesAccount" className="h-5 w-5 accent-emerald" />
+        <input type="checkbox" name="activatesAccount" className="h-5 w-5 accent-walnut" />
         Paying this activates a pending {audience === "MEMBER" ? "membership" : "account"}
       </label>
       <FormMessage state={state} />

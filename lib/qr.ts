@@ -6,6 +6,6 @@ export function qrDataUrl(text: string) {
     errorCorrectionLevel: "M",
     margin: 1,
     width: 240,
-    color: { dark: "#0A1F1A", light: "#FFFFFF" },
+    color: { dark: "#1E140E", light: "#FFFFFF" },
   });
 }

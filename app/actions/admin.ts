@@ -91,3 +91,36 @@ export async function toggleMessageReadAction(formData: FormData) {
   await prisma.contactMessage.update({ where: { id }, data: { read: !m.read } });
   revalidatePath("/admin/messages");
 }
+
+const causeSchema = z.object({
+  title: z.string().trim().min(3).max(120),
+  arabicTitle: z.string().trim().max(120).optional(),
+  summary: z.string().trim().min(10, "Add a short description").max(500),
+  goal: z.string().optional(),
+});
+
+export async function createCauseAction(_: FormState, formData: FormData): Promise<FormState> {
+  await requireAdmin();
+  const parsed = causeSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { values: echo(formData), error: "Please check the form.", fieldErrors: parsed.error.flatten().fieldErrors };
+  const d = parsed.data;
+  const goal = d.goal ? Math.round(Number(d.goal) * 100) : null;
+  if (goal !== null && (!Number.isFinite(goal) || goal <= 0)) return { values: echo(formData), fieldErrors: { goal: ["Enter a valid goal or leave it empty"] } };
+  const base = d.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "cause";
+  const slug = (await prisma.donationCause.findUnique({ where: { slug: base } })) ? `${base}-${Date.now().toString(36)}` : base;
+  const order = (await prisma.donationCause.count()) + 1;
+  await prisma.donationCause.create({ data: { title: d.title, arabicTitle: d.arabicTitle || null, summary: d.summary, goal, slug, order } });
+  revalidatePath("/admin/donations");
+  revalidatePath("/donate");
+  return { ok: "Cause created." };
+}
+
+export async function toggleCauseAction(formData: FormData) {
+  await requireAdmin();
+  const id = String(formData.get("id") || "");
+  const c = await prisma.donationCause.findUnique({ where: { id } });
+  if (!c) return;
+  await prisma.donationCause.update({ where: { id }, data: { active: !c.active } });
+  revalidatePath("/admin/donations");
+  revalidatePath("/donate");
+}

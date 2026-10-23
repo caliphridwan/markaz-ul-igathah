@@ -15,6 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
     { href: "/dashboard/id-card", label: "ID card", icon: "idcard" },
     { href: "/dashboard/alumni", label: "Alumni", icon: "alumni" },
     { href: "/dashboard/profile", label: "Profile", icon: "profile" },
+    { href: "/donate", label: "Donate", icon: "donations" },
   ].filter((i) => !(user.role === "MEMBER" && i.href === "/dashboard/alumni")) as NavItem[];
   return (
     <div className="min-h-screen bg-ivory">

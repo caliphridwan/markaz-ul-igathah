@@ -16,6 +16,10 @@ async function nextMemberNo(tx, code) {
   const year = new Date().getFullYear();
   return `MUI/${code}/${year}/${String(await nextValue(tx, `member-${code}-${year}`)).padStart(4, "0")}`;
 }
+async function nextDonationReceiptNo(tx) {
+  const year = new Date().getFullYear();
+  return `MUI-DON-${year}-${String(await nextValue(tx, `donation-${year}`)).padStart(6, "0")}`;
+}
 async function nextReceiptNo(tx) {
   const year = new Date().getFullYear();
   return `MUI-RCP-${year}-${String(await nextValue(tx, `receipt-${year}`)).padStart(6, "0")}`;
@@ -139,6 +143,18 @@ async function main() {
     if (!exists) await prisma.feeItem.create({ data: { ...m, session: YEAR, audience: "MEMBER" } });
   }
 
+  // Donation causes
+  const causes = [
+    { slug: "general-fund", title: "General Fund", arabicTitle: "الصندوق العام", summary: "Where it is needed most — teachers' welfare, utilities, learning materials and day-to-day running of the Markaz.", goal: null, order: 1 },
+    { slug: "sponsor-a-student", title: "Sponsor a Student", arabicTitle: "كفالة طالب", summary: "Cover a full session's tuition for a sincere student who cannot afford the fees. ₦120,000 sponsors one hafiz-in-training for a year.", goal: naira(2400000), order: 2 },
+    { slug: "masjid-maintenance", title: "Masjid Maintenance & Expansion", arabicTitle: "عمارة المسجد", summary: "Roofing, ablution areas, carpets, fans and lighting so the jama'ah can worship in comfort — a lasting sadaqah jariyah.", goal: naira(5000000), order: 3 },
+    { slug: "ramadan-feeding", title: "Ramadan Iftar & Feeding", arabicTitle: "إفطار صائم", summary: "Provide iftar for fasting students, neighbours and travellers throughout Ramadan.", goal: naira(1500000), order: 4 },
+    { slug: "quran-copies", title: "Mushaf & Books", arabicTitle: "وقف المصاحف", summary: "Place copies of the Qur'an and Arabic textbooks in students' hands — rewarded every time they are read.", goal: naira(800000), order: 5 },
+  ];
+  for (const c of causes) {
+    await prisma.donationCause.upsert({ where: { slug: c.slug }, update: {}, create: c });
+  }
+
   if ((await prisma.announcement.count()) === 0) {
     await prisma.announcement.createMany({
       data: [
@@ -182,7 +198,7 @@ async function main() {
 
 /** A simple illustrated passport placeholder so the demo ID card renders. */
 function avatar(initials, bg) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360"><rect width="300" height="360" fill="${bg}"/><circle cx="150" cy="140" r="62" fill="#F3E7CC"/><path d="M40 360c8-80 56-120 110-120s102 40 110 120Z" fill="#0F4C3A"/><text x="150" y="330" font-family="Georgia,serif" font-size="34" fill="#E6CF8F" text-anchor="middle">${initials}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360"><rect width="300" height="360" fill="${bg}"/><circle cx="150" cy="140" r="62" fill="#F3E7CC"/><path d="M40 360c8-80 56-120 110-120s102 40 110 120Z" fill="#4A2C1A"/><text x="150" y="330" font-family="Georgia,serif" font-size="34" fill="#E6CF8F" text-anchor="middle">${initials}</text></svg>`;
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 }
 
@@ -289,6 +305,31 @@ async function seedDemo() {
           }),
         );
       }
+    }
+  }
+
+  // Sample donations so the donate page and admin reports aren't empty
+  if ((await prisma.donation.count()) === 0) {
+    const bySlug = async (slug) => (await prisma.donationCause.findUnique({ where: { slug } }))?.id ?? null;
+    const gifts = [
+      { donorName: "Ibrahim Yusuf", email: "ibrahim@example.com", amount: 50000, slug: "sponsor-a-student", message: "For a hafiz who needs it. Please make du'a for my parents." },
+      { donorName: "Hajia Khadijah Bello", email: "khadijah@example.com", amount: 250000, slug: "masjid-maintenance" },
+      { donorName: "Anonymous", email: "anon@example.com", amount: 100000, slug: "sponsor-a-student", anonymous: true },
+      { donorName: "Usman Adeyemi", email: "usman@example.com", amount: 10000, slug: "general-fund", message: "Barakallahu feekum." },
+      { donorName: "Maryam Sanni", email: "maryam@example.com", amount: 25000, slug: "quran-copies" },
+      { donorName: "Abdullahi Yusuf", email: "student@markazuligathah.org", amount: 5000, slug: "ramadan-feeding" },
+    ];
+    for (const [i, g] of gifts.entries()) {
+      const causeId = await bySlug(g.slug);
+      await prisma.$transaction(async (tx) =>
+        tx.donation.create({
+          data: {
+            donorName: g.donorName, email: g.email, amount: naira(g.amount), causeId, message: g.message ?? null, anonymous: !!g.anonymous,
+            reference: `DON-DEMO-${String(i + 1).padStart(4, "0")}`, status: "SUCCESS", channel: "demo",
+            receiptNo: await nextDonationReceiptNo(tx), paidAt: new Date(Date.now() - i * 36e5 * 20),
+          },
+        }),
+      );
     }
   }
 

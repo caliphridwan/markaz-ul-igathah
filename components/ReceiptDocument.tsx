@@ -21,7 +21,7 @@ export function ReceiptDocument({ payment, user, qr, verifyUrl }: Props) {
   return (
     <article className="print-area relative mx-auto w-full max-w-[760px] overflow-hidden rounded-[20px] border border-sand bg-white shadow-lift">
       {/* header band */}
-      <header className="relative overflow-hidden bg-emerald px-8 py-7 text-ivory sm:px-10">
+      <header className="relative overflow-hidden bg-walnut px-8 py-7 text-ivory sm:px-10">
         <div className="pattern-gold absolute inset-0 opacity-[0.12]" />
         <div className="relative flex items-center justify-between gap-6">
           <div className="flex items-center gap-4">
@@ -80,7 +80,7 @@ export function ReceiptDocument({ payment, user, qr, verifyUrl }: Props) {
             </tr>
             <tr>
               <td className="pt-4 text-right font-bold uppercase tracking-wider">Total paid</td>
-              <td className="pt-4 text-right font-display text-2xl font-bold text-emerald">{money(payment.amount)}</td>
+              <td className="pt-4 text-right font-display text-2xl font-bold text-walnut">{money(payment.amount)}</td>
             </tr>
           </tbody>
         </table>
@@ -100,7 +100,7 @@ export function ReceiptDocument({ payment, user, qr, verifyUrl }: Props) {
             </div>
           </div>
           <div className="text-center">
-            <p className="font-ruqaa text-2xl text-emerald" lang="ar" dir="rtl">المسجل</p>
+            <p className="font-ruqaa text-2xl text-walnut" lang="ar" dir="rtl">المسجل</p>
             <div className="mt-1 h-px w-48 bg-ink/40" />
             <p className="mt-1 text-[12px] text-ink-muted">{site.registrar}</p>
           </div>

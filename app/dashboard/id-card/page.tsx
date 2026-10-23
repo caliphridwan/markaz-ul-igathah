@@ -26,7 +26,7 @@ export default async function IdCardPage() {
           <ul className="mt-6 space-y-3">
             {checks.map((c) => (
               <li key={c.text}>
-                <Link href={c.href} className="flex items-center gap-3 rounded-xl border border-sand px-4 py-3 hover:border-emerald/40">
+                <Link href={c.href} className="flex items-center gap-3 rounded-xl border border-sand px-4 py-3 hover:border-walnut/40">
                   {c.ok ? (
                     <span className="grid h-6 w-6 place-items-center rounded-full bg-jade text-white"><Check size={14} /></span>
                   ) : (

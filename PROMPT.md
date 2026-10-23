@@ -38,15 +38,15 @@ No external file storage: student passport photos are resized in the browser to 
 
 ## 3. Design direction
 
-**Concept: "The Illuminated Manuscript."** Ivory parchment pages, deep emerald ink, gold leaf, and Islamic geometry.
+**Concept: "The Illuminated Manuscript."** Ivory parchment pages, walnut-leather bindings, gold leaf, and Islamic geometry.
 
 - **Palette (tokens):**
-  - `ink` #0A1F1A (near-black green, primary text & dark sections)
-  - `emerald` #0F4C3A / `emerald-700` #0B3A2C (brand)
-  - `jade` #1F7A5C (interactive accents)
-  - `gold` #C9A24B, `gold-light` #E6CF8F (rules, highlights, seals — used sparingly)
+  - `ink` #1E140E (warm near-black — primary text)
+  - `walnut` #4A2C1A / `walnut-700` #3A2214 / `walnut-800` #2E1B10 / `walnut-900` #24150C (brand: buttons, header bands, footer, portal sidebar)
+  - `gold` #C9A24B, `gold-light` #E6CF8F, `gold-dark` #A6823A (rules, highlights, seals, donate CTA)
   - `parchment` #F7F1E3, `ivory` #FBF8F1 (page backgrounds)
   - `sand` #E9DFC8 (borders, dividers)
+  - `jade` #1F7A5C — reserved for success states only (Paid, Verified, Active)
 - **Typography:** large Cormorant Garamond headlines with tight tracking; Manrope for UI at 15–16px; Arabic in Aref Ruqaa for display and Amiri for running text, always `dir="rtl"` and `lang="ar"`.
 - **Motifs:**
   - An SVG **8-point star (khatam) tessellation** used as a faint background texture (3–8% opacity), never loud.
@@ -86,6 +86,13 @@ No external file storage: student passport photos are resized in the browser to 
 - Membership activates when an admin approves it or when dues marked "activates account" are paid.
 - Membership ID card: same CR80 design, labelled "Member identity card", shows membership no., segment (English + Arabic) and "member since", footer strip in the segment colour; QR verifies at `/verify/student/[id]` as "Verified member".
 - Admin `/admin/members`: counts per segment, search/filter, approve/suspend.
+
+### Donations (`/donate`, public — no login required)
+- `DonationCause` (title, Arabic title, summary, optional goal, active, order) and `Donation` (cause, optional user, donor name, email, phone, anonymous, message, amount in kobo, reference prefixed `DON-`, status, receipt no. `MUI-DON-{year}-{000000}`, paidAt).
+- Page: causes with raised/goal progress bars, sticky donation form (cause, preset amounts ₦1k–₦100k or custom, min ₦100), bank-transfer details from `lib/site.ts`, community total and recent-donor wall (anonymous donors shown as "A generous donor").
+- Payment: Paystack initialize with the donor's email; the shared callback and webhook route references starting with `DON-` to donation finalization; demo mode completes instantly.
+- Receipt at `/donate/receipt/[reference]` (the long random reference is the access key), printable, QR → `/verify/donation/[receiptNo]`.
+- Admin `/admin/donations`: total, this month, average gift, per-cause totals and progress, create/hide causes, filterable donation ledger.
 
 ### Admin (`/admin`, role ADMIN)
 - **Overview** — counts (students by status, revenue total, payments today), latest registrations.

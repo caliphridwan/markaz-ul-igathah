@@ -1,11 +1,11 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
-import { finalizePayment, paystackKey, paystackVerify } from "@/lib/payments";
+import { paystackKey, verifyAndFinalize } from "@/lib/payments";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** Paystack webhook: set the URL to {SITE_URL}/api/payments/webhook in your Paystack dashboard. */
+/** Paystack webhook (fees and donations): set {SITE_URL}/api/payments/webhook in your Paystack dashboard. */
 export async function POST(req: NextRequest) {
   const key = paystackKey();
   if (!key) return NextResponse.json({ ok: false }, { status: 400 });
@@ -20,15 +20,7 @@ export async function POST(req: NextRequest) {
   const event = JSON.parse(raw) as { event: string; data?: { reference?: string } };
   if (event.event === "charge.success" && event.data?.reference) {
     // Re-verify with Paystack rather than trusting the payload amount.
-    const data = await paystackVerify(event.data.reference);
-    if (data) {
-      await finalizePayment(data.reference, {
-        success: data.status === "success",
-        paidAmount: data.amount,
-        channel: data.channel,
-        paidAt: data.paid_at ? new Date(data.paid_at) : undefined,
-      });
-    }
+    await verifyAndFinalize(event.data.reference);
   }
   return NextResponse.json({ ok: true });
 }

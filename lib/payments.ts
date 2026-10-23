@@ -1,6 +1,6 @@
 import "server-only";
 import { prisma } from "./db";
-import { nextReceiptNo } from "./counters";
+import { nextDonationReceiptNo, nextReceiptNo } from "./counters";
 import { siteUrl } from "./site";
 
 const PAYSTACK = "https://api.paystack.co";
@@ -14,10 +14,16 @@ export function isDemoMode() {
   return !paystackKey() && process.env.PAYMENTS_DEMO_MODE === "true";
 }
 
-export function newReference() {
-  const rand = crypto.getRandomValues(new Uint8Array(6));
+export const DONATION_PREFIX = "DON-";
+
+export function newReference(prefix = "MUI-") {
+  const rand = crypto.getRandomValues(new Uint8Array(8));
   const hex = Array.from(rand, (b) => b.toString(16).padStart(2, "0")).join("");
-  return `MUI-${Date.now().toString(36).toUpperCase()}-${hex.toUpperCase()}`;
+  return `${prefix}${Date.now().toString(36).toUpperCase()}-${hex.toUpperCase()}`;
+}
+
+export function isDonationReference(reference: string) {
+  return reference.startsWith(DONATION_PREFIX);
 }
 
 export async function paystackInitialize(opts: { email: string; amount: number; reference: string; metadata?: unknown }) {
@@ -80,4 +86,35 @@ export async function finalizePayment(reference: string, result: { success: bool
     }
     return updated;
   });
+}
+
+/** Mark a donation successful (idempotent) and issue its receipt number. */
+export async function finalizeDonation(reference: string, result: { success: boolean; paidAmount: number; channel?: string; paidAt?: Date }) {
+  return prisma.$transaction(async (tx) => {
+    const d = await tx.donation.findUnique({ where: { reference } });
+    if (!d || d.status === "SUCCESS") return d;
+    if (!result.success || result.paidAmount !== d.amount) {
+      return tx.donation.update({ where: { id: d.id }, data: { status: "FAILED" } });
+    }
+    const receiptNo = await nextDonationReceiptNo(tx);
+    await tx.donation.updateMany({
+      where: { id: d.id, status: { not: "SUCCESS" } },
+      data: { status: "SUCCESS", receiptNo, channel: result.channel ?? null, paidAt: result.paidAt ?? new Date() },
+    });
+    return tx.donation.findUnique({ where: { id: d.id } });
+  });
+}
+
+/** Verify with Paystack and finalize whichever record (fee payment or donation) owns the reference. */
+export async function verifyAndFinalize(reference: string) {
+  const data = await paystackVerify(reference);
+  if (!data) return;
+  const result = {
+    success: data.status === "success",
+    paidAmount: data.amount,
+    channel: data.channel,
+    paidAt: data.paid_at ? new Date(data.paid_at) : undefined,
+  };
+  if (isDonationReference(data.reference)) await finalizeDonation(data.reference, result);
+  else await finalizePayment(data.reference, result);
 }

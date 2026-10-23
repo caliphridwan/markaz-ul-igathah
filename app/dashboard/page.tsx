@@ -45,7 +45,7 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
       )}
 
       {/* hero card */}
-      <section className="relative overflow-hidden rounded-[28px] bg-emerald p-8 text-ivory shadow-lift sm:p-10">
+      <section className="relative overflow-hidden rounded-[28px] bg-walnut p-8 text-ivory shadow-lift sm:p-10">
         <div className="pattern-gold absolute inset-0 opacity-[0.1]" />
         <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full border border-gold/20" />
         <div className="relative flex flex-col justify-between gap-8 md:flex-row md:items-end">
@@ -76,7 +76,7 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
         </div>
         <div className="card p-6">
           <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">Recently paid</p>
-          <p className="mt-3 font-display text-4xl font-semibold text-emerald">{money(paidTotal)}</p>
+          <p className="mt-3 font-display text-4xl font-semibold text-walnut">{money(paidTotal)}</p>
           <p className="mt-1 text-sm text-ink-muted">Last {recent.length} payment{recent.length === 1 ? "" : "s"}</p>
         </div>
         <div className="card p-6">
@@ -95,7 +95,7 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
                 {tasks.map((t) => (
                   <li key={t.text}>
                     <Link href={t.href} className="group flex items-center gap-4 py-3.5">
-                      <span className="grid h-10 w-10 place-items-center rounded-xl bg-parchment text-emerald"><t.icon size={18} /></span>
+                      <span className="grid h-10 w-10 place-items-center rounded-xl bg-parchment text-walnut"><t.icon size={18} /></span>
                       <span className="flex-1 text-[15px]">{t.text}</span>
                       <ArrowRight size={17} className="text-gold-dark transition group-hover:translate-x-1" />
                     </Link>
@@ -108,7 +108,7 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
           <section className="card p-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl">Recent payments</h2>
-              <Link href="/dashboard/receipts" className="text-sm font-semibold text-emerald hover:underline">All receipts</Link>
+              <Link href="/dashboard/receipts" className="text-sm font-semibold text-walnut hover:underline">All receipts</Link>
             </div>
             {recent.length === 0 ? (
               <p className="py-8 text-center text-sm text-ink-muted">No payments yet.</p>

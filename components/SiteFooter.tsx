@@ -5,7 +5,7 @@ import { Wordmark } from "./Crest";
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-emerald-900 text-ivory/75">
+    <footer className="no-print relative overflow-hidden bg-walnut-900 text-ivory/75">
       <div className="pattern-gold pointer-events-none absolute inset-0 opacity-[0.05]" />
       <div className="container relative grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-5">
@@ -25,6 +25,7 @@ export function SiteFooter() {
               ["/membership", "Congregation membership"],
               ["/alumni", "Alumni network"],
               ["/register", "Apply online"],
+              ["/donate", "Donate"],
               ["/login", "Student portal"],
             ].map(([href, label]) => (
               <li key={href}>
@@ -46,9 +47,12 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="relative border-t border-ivory/10">
-        <div className="container flex flex-col items-center justify-between gap-3 py-6 text-[12.5px] text-ivory/50 sm:flex-row">
+        <div className="container flex flex-col items-center justify-between gap-3 py-6 text-[12.5px] text-ivory/50 lg:flex-row">
           <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
-          <span>Established {site.founded} · Knowledge · Character · Service</span>
+          <span className="text-center">Established {site.founded} · Knowledge · Character · Service</span>
+          <span>
+            Developed by <span className="font-semibold text-gold-light">Abdulkareem Ridwan</span>
+          </span>
         </div>
       </div>
     </footer>

@@ -23,7 +23,7 @@ export function JoinForm({ initialSegment }: { initialSegment: SegmentKey }) {
             return (
               <label
                 key={k}
-                className={`relative flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition ${on ? "border-emerald bg-emerald/5 ring-4 ring-emerald/10" : "border-sand-dark/70 bg-white hover:border-emerald/40"}`}
+                className={`relative flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition ${on ? "border-walnut bg-walnut/5 ring-4 ring-walnut/10" : "border-sand-dark/70 bg-white hover:border-walnut/40"}`}
               >
                 <input type="radio" name="segment" value={k} checked={on} onChange={() => setSegment(k)} className="sr-only" />
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl text-gold-light" style={{ backgroundColor: s.color }}>
@@ -33,7 +33,7 @@ export function JoinForm({ initialSegment }: { initialSegment: SegmentKey }) {
                   <span className="block font-semibold">{s.label}</span>
                   <span lang="ar" dir="rtl" className="block font-arabic text-[14px] text-gold-dark">{s.arabic}</span>
                 </span>
-                {on && <Check size={18} className="absolute right-4 top-4 text-emerald" />}
+                {on && <Check size={18} className="absolute right-4 top-4 text-walnut" />}
               </label>
             );
           })}

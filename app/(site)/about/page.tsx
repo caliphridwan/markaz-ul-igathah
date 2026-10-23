@@ -30,7 +30,7 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="container grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <SectionHeading eyebrow="Our name" arabic="اسمنا" title={<>Why <em className="italic text-emerald">al-Ighathah</em>?</>} />
+            <SectionHeading eyebrow="Our name" arabic="اسمنا" title={<>Why <em className="italic text-walnut">al-Ighathah</em>?</>} />
           </div>
           <div className="space-y-5 text-[17px] leading-relaxed text-ink-soft lg:col-span-7">
             <p>
@@ -52,7 +52,7 @@ export default function AboutPage() {
             <span className="eyebrow relative">Vision</span>
             <p className="relative mt-5 font-display text-3xl leading-snug">To be a leading centre of Qur&apos;anic and Islamic scholarship whose graduates are a mercy to their communities.</p>
           </div>
-          <div className="relative overflow-hidden rounded-2xl bg-emerald p-10 text-ivory shadow-card">
+          <div className="relative overflow-hidden rounded-2xl bg-walnut p-10 text-ivory shadow-card">
             <div className="pattern-gold absolute inset-0 opacity-10" />
             <span className="eyebrow relative !text-gold-light">Mission</span>
             <p className="relative mt-5 font-display text-3xl leading-snug text-ivory">To transmit authentic knowledge with connected chains, nurture sound character, and equip every student to serve.</p>
@@ -67,7 +67,7 @@ export default function AboutPage() {
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v) => (
               <div key={v.en} className="card p-8 text-center">
-                <p lang="ar" dir="rtl" className="font-ruqaa text-4xl text-emerald">{v.ar}</p>
+                <p lang="ar" dir="rtl" className="font-ruqaa text-4xl text-walnut">{v.ar}</p>
                 <p className="mt-4 text-[12.5px] font-bold uppercase tracking-[0.2em] text-gold-dark">{v.en}</p>
                 <p className="mt-3 text-[14.5px] text-ink-muted">{v.body}</p>
               </div>
@@ -76,7 +76,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-emerald-900 py-24 text-ivory">
+      <section className="bg-walnut-900 py-24 text-ivory">
         <div className="container grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <SectionHeading light eyebrow="Our journey" arabic="مسيرتنا" title="From a halaqah to an institution." />
@@ -84,7 +84,7 @@ export default function AboutPage() {
           <ol className="border-l border-gold/30 lg:col-span-8">
             {timeline.map((t) => (
               <li key={t.year} className="relative pb-10 pl-10 last:pb-0">
-                <span className="absolute -left-[7px] top-2 h-3.5 w-3.5 rotate-45 border border-gold bg-emerald-900" />
+                <span className="absolute -left-[7px] top-2 h-3.5 w-3.5 rotate-45 border border-gold bg-walnut-900" />
                 <p className="font-display text-3xl text-gold-light">{t.year}</p>
                 <p className="mt-2 text-[16px] text-ivory/75">{t.text}</p>
               </li>

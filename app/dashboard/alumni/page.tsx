@@ -18,7 +18,7 @@ export default async function DashboardAlumni() {
         <div className="card relative max-w-2xl overflow-hidden p-8">
           <div className="pattern-ink absolute inset-0 opacity-[0.03]" />
           <div className="relative">
-            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-parchment text-emerald">
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-parchment text-walnut">
               {pendingAlumnus ? <Hourglass size={22} /> : <GraduationCap size={22} />}
             </span>
             <h2 className="mt-5 text-3xl">{pendingAlumnus ? "Confirming your record" : "The alumni network awaits you"}</h2>

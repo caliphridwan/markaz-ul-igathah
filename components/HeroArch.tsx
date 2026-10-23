@@ -15,7 +15,7 @@ export function HeroArch() {
 
       {/* outer gold arch */}
       <div className="arch absolute inset-0 border border-gold/60 p-3">
-        <div className="arch relative h-full w-full overflow-hidden bg-gradient-to-b from-emerald via-emerald-700 to-emerald-900 shadow-lift">
+        <div className="arch relative h-full w-full overflow-hidden bg-gradient-to-b from-walnut via-walnut-700 to-walnut-900 shadow-lift">
           <div className="pattern-gold absolute inset-0 opacity-[0.16]" />
           <div className="arch absolute inset-5 border border-gold/40" />
           {/* lamp */}
@@ -41,10 +41,10 @@ export function HeroArch() {
 
       {/* floating cards */}
       <div className="absolute -left-6 bottom-24 hidden rounded-2xl border border-sand bg-ivory/95 px-5 py-4 shadow-lift backdrop-blur sm:block">
-        <p className="font-display text-3xl font-semibold text-emerald">Est. {site.founded}</p>
+        <p className="font-display text-3xl font-semibold text-walnut">Est. {site.founded}</p>
         <p className="text-[12.5px] font-semibold uppercase tracking-wider text-ink-muted">Serving the Ummah</p>
       </div>
-      <div className="absolute -right-4 top-28 hidden rounded-2xl border border-gold/30 bg-emerald-900/95 px-5 py-4 text-ivory shadow-lift sm:block">
+      <div className="absolute -right-4 top-28 hidden rounded-2xl border border-gold/30 bg-walnut-900/95 px-5 py-4 text-ivory shadow-lift sm:block">
         <p className="text-[12px] font-bold uppercase tracking-wider text-gold-light">Sanad-connected</p>
         <p className="font-display text-xl">Ijazah teachers</p>
       </div>

@@ -21,10 +21,10 @@ export default async function RegisterPage({ searchParams }: { searchParams: Pro
       />
       <p className="mt-8 text-center text-sm text-ink-muted">
         Already registered?{" "}
-        <Link href="/login" className="font-semibold text-emerald hover:underline">Log in</Link>
+        <Link href="/login" className="font-semibold text-walnut hover:underline">Log in</Link>
         <span className="mx-2 text-sand-dark">·</span>
         Member of the masjid?{" "}
-        <Link href="/membership/join" className="font-semibold text-emerald hover:underline">Join as a member</Link>
+        <Link href="/membership/join" className="font-semibold text-walnut hover:underline">Join as a member</Link>
       </p>
     </div>
   );

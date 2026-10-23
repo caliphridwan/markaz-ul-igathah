@@ -33,11 +33,11 @@ export function LoginForm({ next, demo }: { next?: string; demo: Demo }) {
                 key={a.email}
                 type="button"
                 onClick={() => fill(a.email)}
-                className="rounded-xl border border-sand bg-white px-3.5 py-2.5 text-left transition hover:border-emerald hover:shadow-card"
+                className="rounded-xl border border-sand bg-white px-3.5 py-2.5 text-left transition hover:border-walnut hover:shadow-card"
               >
                 <span className="block text-[13.5px] font-semibold text-ink">{a.role}</span>
                 <span className="block truncate font-mono text-[11.5px] text-ink-muted">{a.email}</span>
-                <span className="block text-[11.5px] text-jade">{a.note}</span>
+                <span className="block text-[11.5px] text-gold-dark">{a.note}</span>
               </button>
             ))}
           </div>
