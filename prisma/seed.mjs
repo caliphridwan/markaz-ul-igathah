@@ -52,7 +52,7 @@ const programmes = [
     mode: "Full-time or weekend",
     schedule: "Mon – Fri, 9:00am – 2:00pm",
     order: 2,
-    tuition: 85000,
+    tuition: 25000,
   },
   {
     slug: "islamic-studies-diploma",
