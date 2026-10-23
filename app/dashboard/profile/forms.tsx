@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useState } from "react";
 import { Camera } from "lucide-react";
 import { changePasswordAction, updatePhotoAction, updateProfileAction } from "@/app/actions/student";
 import { initialState } from "@/app/actions/types";
@@ -51,19 +51,20 @@ export function PhotoForm({ current }: { current: string | null }) {
   const [state, action] = useActionState(updatePhotoAction, initialState);
   const [preview, setPreview] = useState<string | null>(current);
   const [err, setErr] = useState<string | null>(null);
-  const hidden = useRef<HTMLInputElement>(null);
+  const [photo, setPhoto] = useState(""); // resized data URL, held in state so re-renders never wipe it
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
     if (!f) return;
     setErr(null);
-    if (!f.type.startsWith("image/")) return setErr("Please choose an image file.");
+    e.target.value = ""; // allow re-picking the same file
+    if (f.type && !f.type.startsWith("image/")) return setErr("Please choose an image file (JPG or PNG).");
     try {
       const data = await resizeImage(f);
       setPreview(data);
-      if (hidden.current) hidden.current.value = data;
+      setPhoto(data);
     } catch {
-      setErr("Could not process that image. Try a JPG or PNG.");
+      setErr("Your browser couldn't read that image (iPhone HEIC photos often fail). Please use a JPG or PNG.");
     }
   }
 
@@ -83,8 +84,12 @@ export function PhotoForm({ current }: { current: string | null }) {
             <Camera size={15} /> Choose photo
             <input type="file" accept="image/*" onChange={onPick} className="sr-only" />
           </label>
-          <input ref={hidden} type="hidden" name="photo" defaultValue="" />
-          <SubmitButton className="btn-primary btn-sm block" pendingText="Uploading…">Save photo</SubmitButton>
+          <input type="hidden" name="photo" value={photo} readOnly />
+          {photo ? (
+            <SubmitButton className="btn-primary btn-sm block" pendingText="Uploading…">Save photo</SubmitButton>
+          ) : (
+            <p className="text-[12.5px] text-ink-muted">Choose a photo, then save.</p>
+          )}
         </div>
       </div>
       {err && <p className="mt-3 text-[13px] text-red-600">{err}</p>}
