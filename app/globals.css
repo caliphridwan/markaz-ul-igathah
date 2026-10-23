@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --khatam-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23C9A24B' stroke-width='1'%3E%3Cpath d='M40 16 64 40 40 64 16 40Z'/%3E%3Cpath d='M23 23H57V57H23Z'/%3E%3Ccircle cx='40' cy='40' r='7'/%3E%3Cpath d='M0 0 23 23M80 0 57 23M0 80 23 57M80 80 57 57M40 0V16M40 64V80M0 40H16M64 40H80'/%3E%3C/g%3E%3C/svg%3E");
+    --khatam-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%230F4C3A' stroke-width='1'%3E%3Cpath d='M40 16 64 40 40 64 16 40Z'/%3E%3Cpath d='M23 23H57V57H23Z'/%3E%3Ccircle cx='40' cy='40' r='7'/%3E%3Cpath d='M0 0 23 23M80 0 57 23M0 80 23 57M80 80 57 57M40 0V16M40 64V80M0 40H16M64 40H80'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ivory font-sans text-[15.5px] leading-relaxed text-ink;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display font-semibold tracking-tight text-ink;
+  }
+  ::selection {
+    @apply bg-gold/30 text-ink;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-ivory;
+  }
+  [lang="ar"] {
+    font-family: var(--font-arabic), serif;
+  }
+}
+
+@layer components {
+  .pattern-gold {
+    background-image: var(--khatam-gold);
+    background-size: 80px 80px;
+  }
+  .pattern-ink {
+    background-image: var(--khatam-ink);
+    background-size: 80px 80px;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[11.5px] font-bold uppercase tracking-[0.22em] text-gold-dark;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-px w-8 bg-gold;
+  }
+  .display {
+    @apply font-display text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.015em] sm:text-6xl lg:text-[4.6rem];
+  }
+  .h-section {
+    @apply font-display text-4xl font-semibold leading-[1.05] sm:text-5xl;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-emerald text-ivory shadow-[inset_0_-2px_0_rgba(0,0,0,.2)] hover:bg-emerald-700;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-ink shadow-[inset_0_-2px_0_rgba(0,0,0,.15)] hover:bg-gold-light;
+  }
+  .btn-ghost {
+    @apply btn border border-ink/15 text-ink hover:border-ink/30 hover:bg-ink/5;
+  }
+  .btn-outline-light {
+    @apply btn border border-ivory/30 text-ivory hover:border-gold hover:text-gold-light;
+  }
+  .btn-sm {
+    @apply px-4 py-2 text-[13px];
+  }
+
+  .card {
+    @apply rounded-2xl border border-sand bg-white shadow-card;
+  }
+  .gold-rule {
+    @apply relative h-[5px] border-y border-gold/70;
+  }
+
+  .label {
+    @apply mb-1.5 block text-[13px] font-semibold text-ink-soft;
+  }
+  .input {
+    @apply block w-full rounded-xl border border-sand-dark/70 bg-white px-4 py-3 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(10,31,26,.04)] transition placeholder:text-ink-muted/60 focus:border-jade focus:outline-none focus:ring-4 focus:ring-jade/10;
+  }
+  .input-error {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-100;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-[11.5px] font-bold uppercase tracking-wider ring-1 ring-inset;
+  }
+
+  .table-wrap {
+    @apply overflow-x-auto rounded-2xl border border-sand bg-white;
+  }
+  .table {
+    @apply w-full min-w-[640px] text-left text-sm;
+  }
+  .table th {
+    @apply border-b border-sand bg-parchment/60 px-4 py-3 text-[11.5px] font-bold uppercase tracking-wider text-ink-muted;
+  }
+  .table td {
+    @apply border-b border-sand/60 px-4 py-3.5 align-middle;
+  }
+  .table tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .arch {
+    border-radius: 999px 999px 0 0;
+  }
+  .reveal {
+    @apply animate-rise;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Print: receipts & ID cards ---------- */
+@media print {
+  @page {
+    margin: 10mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-area {
+    box-shadow: none !important;
+    margin: 0 auto !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

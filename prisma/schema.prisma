@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+enum StudentStatus {
+  PENDING
+  ACTIVE
+  GRADUATED
+  SUSPENDED
+}
+
+enum EntryType {
+  NEW_STUDENT
+  ALUMNUS
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  passwordHash  String
+  role          Role           @default(STUDENT)
+  firstName     String
+  lastName      String
+  otherName     String?
+  arabicName    String?
+  phone         String
+  gender        Gender
+  dateOfBirth   DateTime?
+  address       String?
+  stateOfOrigin String?
+  guardianName  String?
+  guardianPhone String?
+  photo         String?        @db.Text
+  matricNo      String?        @unique
+  entryType     EntryType      @default(NEW_STUDENT)
+  status        StudentStatus  @default(PENDING)
+  session       String?
+  programmeId   String?
+  programme     Programme?     @relation(fields: [programmeId], references: [id])
+  payments      Payment[]
+  alumni        AlumniProfile?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([status])
+  @@index([role])
+}
+
+model Programme {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  arabicTitle String
+  summary     String
+  duration    String
+  mode        String
+  schedule    String
+  order       Int       @default(0)
+  students    User[]
+  feeItems    FeeItem[]
+}
+
+model FeeItem {
+  id               String     @id @default(cuid())
+  name             String
+  description      String?
+  amount           Int // kobo
+  session          String
+  activatesAccount Boolean    @default(false)
+  active           Boolean    @default(true)
+  programmeId      String?
+  programme        Programme? @relation(fields: [programmeId], references: [id])
+  payments         Payment[]
+  createdAt        DateTime   @default(now())
+}
+
+model Payment {
+  id        String        @id @default(cuid())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feeItemId String?
+  feeItem   FeeItem?      @relation(fields: [feeItemId], references: [id])
+  purpose   String
+  amount    Int // kobo
+  reference String        @unique
+  status    PaymentStatus @default(PENDING)
+  channel   String?
+  receiptNo String?       @unique
+  paidAt    DateTime?
+  createdAt DateTime      @default(now())
+
+  @@index([userId, status])
+}
+
+model AlumniProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  graduationYear Int
+  occupation     String?
+  location       String?
+  bio            String?
+  linkedin       String?
+  visible        Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  pinned    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Counter {
+  id    String @id
+  value Int    @default(0)
+}
