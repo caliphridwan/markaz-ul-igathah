@@ -27,7 +27,7 @@ function memberInfo(s: Student) {
  * CR80 ID card (85.6 × 54 mm). Everything inside is sized in `em`, so the card scales
  * on screen and prints at exactly 85.6mm when font-size is 1.6mm.
  */
-const shell = "relative h-[33.75em] w-[53.5em] overflow-hidden rounded-[2em] text-[7px] min-[420px]:text-[8px] sm:text-[9.5px] print:text-[1.6mm] print:rounded-[1.5mm] shadow-lift print:shadow-none";
+const shell = "tilt relative h-[33.75em] w-[53.5em] overflow-hidden rounded-[2em] text-[7px] min-[420px]:text-[8px] sm:text-[9.5px] print:text-[1.6mm] print:rounded-[1.5mm] shadow-lift print:shadow-none";
 
 export function IdCardFront({ s }: { s: Student }) {
   const name = [s.firstName, s.otherName, s.lastName].filter(Boolean).join(" ");

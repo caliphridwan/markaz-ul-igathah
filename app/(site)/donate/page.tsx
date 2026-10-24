@@ -8,6 +8,7 @@ import { isDemoMode } from "@/lib/payments";
 import { PageHero } from "@/components/PageHero";
 import { SectionHeading } from "@/components/Ornament";
 import { DonateForm } from "./DonateForm";
+import { CountUp } from "@/components/CountUp";
 
 export const metadata: Metadata = { title: "Donate" };
 export const dynamic = "force-dynamic";
@@ -59,7 +60,7 @@ export default async function DonatePage({ searchParams }: { searchParams: Promi
                       {pct !== null ? (
                         <>
                           <div className="h-2 overflow-hidden rounded-full bg-sand" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${c.title} progress`}>
-                            <div className="h-full rounded-full bg-gradient-to-r from-gold-dark to-walnut" style={{ width: `${pct}%` }} />
+                            <div className="bar-grow h-full rounded-full bg-gradient-to-r from-gold-dark to-walnut" style={{ width: `${pct}%` }} />
                           </div>
                           <p className="mt-2 flex justify-between text-[13px]">
                             <span><strong className="text-walnut">{money(sum)}</strong> raised</span>
@@ -93,7 +94,7 @@ export default async function DonatePage({ searchParams }: { searchParams: Promi
           <aside className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
               <div className="relative overflow-hidden rounded-t-[28px] bg-walnut p-7 text-ivory sm:p-8">
-                <div className="pattern-gold absolute inset-0 opacity-[0.08]" />
+                <div className="pattern-gold pattern-drift absolute inset-0 opacity-[0.08]" />
                 <div className="relative">
                   <p lang="ar" dir="rtl" className="font-arabic text-lg text-gold-light">مَثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ</p>
                   <h2 className="mt-2 font-display text-3xl !text-ivory">Make a donation</h2>
@@ -126,7 +127,9 @@ export default async function DonatePage({ searchParams }: { searchParams: Promi
         <div className="container grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <SectionHeading light eyebrow="Together" arabic="معًا" title="What our community has given." />
-            <p className="mt-8 font-display text-5xl font-semibold text-gold-light">{money(totals._sum.amount ?? 0)}</p>
+            <p className="mt-8 font-display text-5xl font-semibold text-gold-light">
+              <CountUp value={money(totals._sum.amount ?? 0)} duration={2200} />
+            </p>
             <p className="mt-1 text-ivory/65">from {totals._count} donation{totals._count === 1 ? "" : "s"} — jazakumullahu khairan.</p>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-8">

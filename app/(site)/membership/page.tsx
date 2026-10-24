@@ -40,8 +40,8 @@ export default async function MembershipPage() {
               return (
                 <article key={k} className="card group relative flex flex-col overflow-hidden">
                   <div className="relative flex h-36 items-center justify-center overflow-hidden" style={{ backgroundColor: s.color }}>
-                    <div className="pattern-gold absolute inset-0 opacity-20" />
-                    <div className="arch absolute inset-x-12 bottom-0 top-6 border border-gold/40" />
+                    <div className="pattern-gold absolute inset-0 opacity-20 transition-transform duration-[1400ms] ease-out group-hover:scale-110" />
+                    <div className="arch absolute inset-x-12 bottom-0 top-6 border border-gold/40 transition-all duration-700 ease-out group-hover:inset-x-10 group-hover:border-gold/70" />
                     <p lang="ar" dir="rtl" className="relative font-ruqaa text-4xl text-gold-light">{s.arabic}</p>
                   </div>
                   <div className="flex flex-1 flex-col p-7">

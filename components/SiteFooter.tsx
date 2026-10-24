@@ -51,7 +51,7 @@ export function SiteFooter() {
           <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
           <span className="text-center">Established {site.founded} · Knowledge · Character · Service</span>
           <span>
-            Developed by <span className="font-semibold text-gold-light">Abdulkareem Ridwan</span>
+            Developed by <span className="font-semibold text-gold-light">Abdulkareem Ridwan (Caliph Ridwan)</span>
           </span>
         </div>
       </div>

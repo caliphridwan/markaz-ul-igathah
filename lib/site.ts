@@ -9,9 +9,9 @@ export const site = {
   tagline: "A House of Qur'an, Arabic & Islamic Learning",
   description:
     "Markaz-ul-Igathah is an Arabic and Islamic institution nurturing huffadh, scholars and upright citizens through authentic knowledge, sincere character and excellence in service.",
-  founded: 2001, // TODO: confirm founding year
+  founded: 2009, // TODO: confirm founding year
   currentSession: "2026/2027",
-  address: "No.1 Markaz Street, Aparadija, Adeleye, Ado-Odo Ota Ogun State, Nigeria", // TODO
+  address: "No. 1 Markaz Street, Aparadija, Adeleye, Ado-Odo Ota, Ogun State, Nigeria",
   phone: "+234 800 000 0000", // TODO
   email: "info@markazuligathah.org", // TODO
   hours: "Sat – Thu · 7:30am – 5:00pm",

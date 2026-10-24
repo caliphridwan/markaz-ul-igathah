@@ -16,7 +16,7 @@ export async function SiteHeader() {
   const session = await getSession();
   const portalHref = session?.role === "ADMIN" ? "/admin" : "/dashboard";
   return (
-    <header className="no-print sticky top-0 z-40 border-b border-sand/70 bg-ivory/85 backdrop-blur-md">
+    <header className="site-header no-print sticky top-0 z-40 border-b border-sand/70 bg-ivory/85 backdrop-blur-md">
       <div className="hidden border-b border-sand/60 bg-walnut-900 text-[12.5px] text-ivory/70 md:block">
         <div className="container flex h-9 items-center justify-between">
           <span>

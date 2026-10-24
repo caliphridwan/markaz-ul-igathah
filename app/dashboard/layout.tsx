@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { requireUser } from "@/lib/auth";
 import { fullName, initials } from "@/lib/format";
 import { PortalNav, type NavItem } from "@/components/PortalNav";
+import { Motion } from "@/components/Motion";
 
 export const metadata: Metadata = { title: "Student portal", robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -19,6 +20,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   ].filter((i) => !(user.role === "MEMBER" && i.href === "/dashboard/alumni")) as NavItem[];
   return (
     <div className="min-h-screen bg-ivory">
+      <Motion />
       <PortalNav items={items} user={{ name: fullName(user), sub: user.matricNo ?? user.email, photo: user.photo, initials: initials(user) }} />
       <div className="lg:pl-[272px] print:!pl-0">
         <main className="mx-auto max-w-6xl px-5 py-8 sm:px-8 lg:py-12 print:!p-0">{children}</main>

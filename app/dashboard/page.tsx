@@ -45,8 +45,8 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
       )}
 
       {/* hero card */}
-      <section className="relative overflow-hidden rounded-[28px] bg-walnut p-8 text-ivory shadow-lift sm:p-10">
-        <div className="pattern-gold absolute inset-0 opacity-[0.1]" />
+      <section className="sheen-once relative overflow-hidden rounded-[28px] bg-walnut p-8 text-ivory shadow-lift sm:p-10">
+        <div className="pattern-gold pattern-drift absolute inset-0 opacity-[0.1]" />
         <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full border border-gold/20" />
         <div className="relative flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
@@ -69,17 +69,17 @@ export default async function DashboardHome({ searchParams }: { searchParams: Pr
 
       {/* stat tiles */}
       <section className="grid gap-5 sm:grid-cols-3">
-        <div className="card p-6">
+        <div className="enter d-2 card p-6">
           <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">Outstanding</p>
           <p className="mt-3 font-display text-4xl font-semibold text-ink">{money(outstandingTotal)}</p>
           <p className="mt-1 text-sm text-ink-muted">{outstanding.length} unpaid item{outstanding.length === 1 ? "" : "s"}</p>
         </div>
-        <div className="card p-6">
+        <div className="enter d-3 card p-6">
           <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">Recently paid</p>
           <p className="mt-3 font-display text-4xl font-semibold text-walnut">{money(paidTotal)}</p>
           <p className="mt-1 text-sm text-ink-muted">Last {recent.length} payment{recent.length === 1 ? "" : "s"}</p>
         </div>
-        <div className="card p-6">
+        <div className="enter d-4 card p-6">
           <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">Account status</p>
           <p className="mt-3 font-display text-4xl font-semibold capitalize text-ink">{user.status.toLowerCase()}</p>
           <p className="mt-1 text-sm text-ink-muted">Registered {date(user.createdAt)}</p>

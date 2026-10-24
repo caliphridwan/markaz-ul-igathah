@@ -5,22 +5,22 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="grid min-h-screen lg:grid-cols-[1fr_1.1fr]">
       <aside className="relative hidden overflow-hidden bg-walnut-900 text-ivory lg:block">
-        <div className="pattern-gold absolute inset-0 opacity-[0.09]" />
+        <div className="pattern-gold pattern-drift absolute inset-0 opacity-[0.09]" />
         <div className="absolute -bottom-40 -left-40 h-[560px] w-[560px] rounded-full border border-gold/15" />
         <div className="relative flex h-full flex-col justify-between p-12">
           <Link href="/"><Wordmark tone="light" /></Link>
           <div>
-            <div className="arch mx-auto w-[300px] border border-gold/40 p-3">
+            <div className="arch arch-reveal mx-auto w-[300px] border border-gold/40 p-3">
               <div className="arch relative flex aspect-[3/4] items-center justify-center overflow-hidden bg-gradient-to-b from-walnut to-walnut-800">
                 <div className="pattern-gold absolute inset-0 opacity-20" />
-                <p lang="ar" dir="rtl" className="relative font-ruqaa text-6xl leading-tight text-gold-light">
+                <p lang="ar" dir="rtl" className="enter d-5 text-shimmer relative font-ruqaa text-6xl leading-tight text-gold-light">
                   طلب
                   <br />
                   العلم
                 </p>
               </div>
             </div>
-            <p className="mx-auto mt-10 max-w-md text-center font-display text-2xl italic leading-snug text-ivory/85">
+            <p className="enter d-7 mx-auto mt-10 max-w-md text-center font-display text-2xl italic leading-snug text-ivory/85">
               &ldquo;Whoever takes a path seeking knowledge, Allah makes easy for him a path to Paradise.&rdquo;
             </p>
             <p className="mt-3 text-center text-[13px] uppercase tracking-[0.2em] text-gold-light/80">Sahih Muslim</p>

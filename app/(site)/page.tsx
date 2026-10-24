@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { site } from "@/lib/site";
 import { date } from "@/lib/format";
 import { HeroArch } from "@/components/HeroArch";
+import { CountUp } from "@/components/CountUp";
 import { Ornament, SectionHeading } from "@/components/Ornament";
 import { SEGMENTS, SEGMENT_KEYS } from "@/lib/segments";
 
@@ -14,6 +15,11 @@ const pillars = [
   { icon: BookOpen, title: "Classical & clear", ar: "المنهج", body: "A curriculum rooted in the classical texts, taught in clear language with modern teaching methods, assessments and progress reports." },
   { icon: HeartHandshake, title: "Tarbiyah first", ar: "التربية", body: "We teach adab before 'ilm. Mentorship, character formation and service to the community are woven into every term." },
   { icon: Landmark, title: "A lasting home", ar: "الانتماء", body: "From first registration to the alumni network, students belong to a community that keeps supporting them for life." },
+];
+
+/** The hero headline, word by word: [word, italic?, trailing punctuation] */
+const headline: [string, boolean?, string?][] = [
+  ["Where"], ["the"], ["Qur'an"], ["is"], ["carried", true, ","], ["and"], ["character"], ["is"], ["formed", true, "."],
 ];
 
 const steps = [
@@ -39,18 +45,25 @@ export default async function HomePage() {
     <>
       {/* ---------- HERO ---------- */}
       <section className="relative overflow-hidden bg-parchment">
-        <div className="pattern-ink absolute inset-0 opacity-[0.045]" />
+        <div className="pattern-ink pattern-drift absolute inset-0 opacity-[0.045]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ivory to-transparent" />
         <div className="container relative grid items-center gap-16 py-16 lg:grid-cols-12 lg:py-24">
-          <div className="reveal lg:col-span-7">
-            <span className="eyebrow">An Arabic & Islamic Institution</span>
-            <h1 className="display mt-6">
-              Where the Qur&apos;an is <em className="font-medium italic text-walnut">carried</em>, and character is <em className="font-medium italic text-walnut">formed</em>.
+          <div className="lg:col-span-7">
+            <span className="enter d-1 eyebrow">An Arabic & Islamic Institution</span>
+            <h1 className="display mt-6" aria-label="Where the Qur'an is carried, and character is formed.">
+              {headline.map(([word, italic, after], i) => (
+                <span key={i} aria-hidden="true">
+                  <span className="enter inline-block" style={{ animationDelay: `${160 + i * 75}ms` }}>
+                    {italic ? <em className="font-medium italic text-walnut">{word}</em> : word}
+                    {after}
+                  </span>{" "}
+                </span>
+              ))}
             </h1>
-            <p className="mt-7 max-w-xl text-[18px] leading-relaxed text-ink-muted">
+            <p className="enter d-7 mt-7 max-w-xl text-[18px] leading-relaxed text-ink-muted">
               {site.name} raises huffadh, Arabic scholars and upright citizens through authentic, sanad-connected learning — in a home that remains yours long after graduation.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="enter d-8 mt-9 flex flex-wrap items-center gap-4">
               <Link href="/register" className="btn-primary px-7 py-3.5">
                 Begin your application <ArrowRight size={17} />
               </Link>
@@ -58,7 +71,7 @@ export default async function HomePage() {
                 Explore programmes
               </Link>
             </div>
-            <div className="mt-12 flex items-center gap-5 border-t border-sand pt-7">
+            <div className="enter mt-12 flex items-center gap-5 border-t border-sand pt-7" style={{ animationDelay: "1.15s" }}>
               <p lang="ar" dir="rtl" className="font-arabic text-[22px] text-walnut">
                 خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ
               </p>
@@ -68,7 +81,7 @@ export default async function HomePage() {
               </p>
             </div>
           </div>
-          <div className="reveal lg:col-span-5" style={{ animationDelay: ".15s" }}>
+          <div className="parallax-slow lg:col-span-5">
             <HeroArch />
           </div>
         </div>
@@ -77,10 +90,12 @@ export default async function HomePage() {
       {/* ---------- STATS ---------- */}
       <section className="relative z-10 -mt-6">
         <div className="container">
-          <div className="grid grid-cols-2 divide-sand overflow-hidden rounded-3xl border border-sand bg-white shadow-card md:grid-cols-4 md:divide-x">
-            {site.stats.map((s) => (
-              <div key={s.label} className="px-6 py-8 text-center">
-                <p className="font-display text-[2.7rem] font-semibold leading-none text-walnut">{s.value}</p>
+          <div className="enter d-6 grid grid-cols-2 divide-sand overflow-hidden rounded-3xl border border-sand bg-white shadow-card md:grid-cols-4 md:divide-x">
+            {site.stats.map((s, i) => (
+              <div key={s.label} className="enter px-6 py-8 text-center" style={{ animationDelay: `${900 + i * 120}ms` }}>
+                <p className="font-display text-[2.7rem] font-semibold leading-none text-walnut">
+                  <CountUp value={s.value} />
+                </p>
                 <p className="mt-2 text-[12.5px] font-bold uppercase tracking-[0.16em] text-ink-muted">{s.label}</p>
               </div>
             ))}
@@ -92,7 +107,7 @@ export default async function HomePage() {
       <section className="py-24 sm:py-32">
         <div className="container grid items-center gap-16 lg:grid-cols-2">
           <div className="relative order-2 lg:order-1">
-            <div className="grid grid-cols-2 gap-5">
+            <div data-reveal className="grid grid-cols-2 gap-5">
               <div className="arch relative aspect-[3/4] overflow-hidden bg-walnut">
                 <div className="pattern-gold absolute inset-0 opacity-25" />
                 <p lang="ar" dir="rtl" className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-ruqaa text-5xl text-gold-light">
@@ -136,7 +151,7 @@ export default async function HomePage() {
 
       {/* ---------- PROGRAMMES ---------- */}
       <section className="relative overflow-hidden bg-walnut-900 py-24 text-ivory sm:py-32">
-        <div className="pattern-gold absolute inset-0 opacity-[0.06]" />
+        <div className="pattern-gold pattern-drift absolute inset-0 opacity-[0.06]" />
         <div className="container relative">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <SectionHeading light eyebrow="Programmes" arabic="البرامج" title="Paths of study for every stage of life." lead="From a child's first letters to a scholar's ijazah — each programme has a clear curriculum, qualified teachers and a defined end." />
@@ -148,6 +163,7 @@ export default async function HomePage() {
             {programmes.map((p, i) => (
               <Link
                 key={p.id}
+                data-reveal
                 href={`/programmes#${p.slug}`}
                 className="group relative overflow-hidden rounded-[28px] border border-ivory/10 bg-walnut-800/60 p-7 transition duration-300 hover:-translate-y-1 hover:border-gold/40 hover:bg-walnut-800"
               >
@@ -179,7 +195,7 @@ export default async function HomePage() {
             {pillars.map((p) => (
               <div key={p.title} className="card group p-7 transition hover:-translate-y-1 hover:shadow-lift">
                 <div className="flex items-center justify-between">
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-walnut text-gold-light">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-walnut text-gold-light transition-transform duration-700 ease-out group-hover:rotate-[8deg] group-hover:scale-110">
                     <p.icon size={22} />
                   </span>
                   <span lang="ar" dir="rtl" className="font-arabic text-xl text-gold-dark">
@@ -292,7 +308,7 @@ export default async function HomePage() {
               </div>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {SEGMENT_KEYS.map((k) => (
-                  <li key={k}>
+                  <li key={k} data-reveal>
                     <Link href={`/membership/join?segment=${k}`} className="flex items-center gap-4 rounded-2xl border border-sand bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-card">
                       <span className="h-10 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: SEGMENTS[k].color }} />
                       <span className="min-w-0 flex-1">
@@ -311,7 +327,7 @@ export default async function HomePage() {
 
       {/* ---------- CTA ---------- */}
       <section className="relative overflow-hidden bg-walnut text-ivory">
-        <div className="pattern-gold absolute inset-0 opacity-[0.08]" />
+        <div className="pattern-gold pattern-drift absolute inset-0 opacity-[0.08]" />
         <div className="container relative flex flex-col items-center py-24 text-center">
           <p lang="ar" dir="rtl" className="font-ruqaa text-4xl text-gold-light sm:text-5xl">
             رَبِّ زِدْنِي عِلْمًا
@@ -323,7 +339,7 @@ export default async function HomePage() {
               Apply now <ArrowRight size={17} />
             </Link>
             <Link href="/donate" className="btn-outline-light px-8 py-3.5">
-              Support Markaz-ul-Igathah
+              Support the Markaz
             </Link>
           </div>
         </div>

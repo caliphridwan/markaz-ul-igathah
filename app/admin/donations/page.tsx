@@ -71,7 +71,7 @@ export default async function AdminDonations({ searchParams }: { searchParams: P
                         <Link href={`/admin/donations?cause=${c.id}`} className="font-semibold hover:text-walnut">{c.title}</Link>
                         {pct !== null && (
                           <div className="mt-1.5 h-1.5 w-40 overflow-hidden rounded-full bg-sand">
-                            <div className="h-full bg-walnut" style={{ width: `${pct}%` }} />
+                            <div className="bar-grow h-full bg-walnut" style={{ width: `${pct}%` }} />
                           </div>
                         )}
                       </td>

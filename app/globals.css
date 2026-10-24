@@ -121,6 +121,8 @@
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
@@ -145,4 +147,155 @@
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+}
+
+/* =====================================================================
+   Motion — calm, dignified, "settling into place".
+   One easing curve everywhere so the whole site moves with one voice.
+   Everything here is switched off by prefers-reduced-motion (above)
+   and by the Motion controller, which never hides content without JS.
+   ===================================================================== */
+:root {
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-soft: cubic-bezier(0.45, 0, 0.2, 1);
+}
+
+@keyframes rv-rise {
+  from { opacity: 0; transform: translateY(26px); filter: blur(6px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+@keyframes rv-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes arch-reveal {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes bar-grow  { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes shimmer   { from { background-position: 200% 0; } to { background-position: -50% 0; } }
+@keyframes drift     { from { background-position: 0 0; } to { background-position: 80px 80px; } }
+@keyframes float     { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes sway      { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+@keyframes glow      { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+@keyframes sheen     { from { transform: translateX(-130%) skewX(-18deg); } to { transform: translateX(230%) skewX(-18deg); } }
+
+@layer components {
+  /* --- Entrance on load (hero, page headers). Stagger with .d-1 … .d-8 --- */
+  .enter { animation: rv-rise 1.1s var(--ease-out) backwards; }
+  .enter-fade { animation: rv-fade 1.4s var(--ease-soft) backwards; }
+  .d-1 { animation-delay: 80ms; }  .d-2 { animation-delay: 180ms; }
+  .d-3 { animation-delay: 300ms; } .d-4 { animation-delay: 420ms; }
+  .d-5 { animation-delay: 540ms; } .d-6 { animation-delay: 680ms; }
+  .d-7 { animation-delay: 820ms; } .d-8 { animation-delay: 980ms; }
+
+  /* --- Scroll reveal: the Motion controller adds .rv to below-the-fold
+         blocks, then .rv-in (with a staggered --rv-delay) as they arrive.
+         fill-mode "backwards" hands control back after the animation,
+         so hover lifts keep working. --- */
+  .rv:not(.rv-in) { opacity: 0; }
+  .rv-in { animation: rv-rise 1s var(--ease-out) var(--rv-delay, 0ms) backwards; }
+
+  /* --- Page transitions (the template.tsx files in each route group) --- */
+  .page-enter { animation: page-in 0.7s var(--ease-out) backwards; }
+
+  /* --- Hero arch --- */
+  .arch-reveal { animation: arch-reveal 1.6s var(--ease-out) 0.2s backwards; }
+  .lamp-sway { transform-origin: 50% 0; animation: sway 6s ease-in-out infinite; }
+  .lamp-glow { animation: glow 3.2s ease-in-out infinite; }
+  .float-a { animation: rv-rise 1s var(--ease-out) 1.1s backwards, float 7s ease-in-out 2.2s infinite; }
+  .float-b { animation: rv-rise 1s var(--ease-out) 1.3s backwards, float 8s ease-in-out 2.6s infinite; }
+  .parallax-slow { transform: translate3d(0, calc(var(--sy, 0) * -0.06px), 0); will-change: transform; }
+
+  /* Gold light travelling through Arabic calligraphy */
+  .text-shimmer {
+    background: linear-gradient(110deg, #e6cf8f 35%, #fff6dc 48%, #e6cf8f 61%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 7s linear infinite;
+  }
+
+  /* Geometric pattern drifting very slowly behind dark bands */
+  .pattern-drift { animation: drift 40s linear infinite; }
+
+  /* Gold rule drawing out from the centre */
+  .rule-draw { transform-origin: 50% 50%; animation: rule-draw 1.4s var(--ease-out) 0.5s backwards; }
+
+  /* Donation progress bars fill when their card arrives */
+  .bar-grow { transform-origin: 0 50%; animation: bar-grow 1.6s var(--ease-out) 0.35s backwards; }
+  .rv:not(.rv-in) .bar-grow { animation: none; transform: scaleX(0); }
+
+  /* One slow band of light across a hero card */
+  .sheen-once { position: relative; overflow: hidden; }
+  .sheen-once::before {
+    content: "";
+    position: absolute;
+    inset: -20% auto -20% 0;
+    width: 35%;
+    background: linear-gradient(90deg, transparent, rgba(230, 207, 143, 0.18), transparent);
+    animation: sheen 2.4s var(--ease-soft) 0.8s backwards;
+    transform: translateX(-130%) skewX(-18deg);
+    pointer-events: none;
+  }
+
+  /* Buttons: a sweep of light on hover, a soft press */
+  .btn { position: relative; overflow: hidden; isolation: isolate; }
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.32) 50%, transparent 70%);
+    transform: translateX(-130%);
+    transition: transform 0.9s var(--ease-out);
+    pointer-events: none;
+  }
+  .btn:hover::after { transform: translateX(130%); }
+  .btn-primary:hover, .btn-gold:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px -14px rgba(74, 44, 26, 0.6);
+  }
+  .btn:active, .btn-primary:active, .btn-gold:active { transform: scale(0.97); }
+
+  /* Cards settle a little more slowly than the default */
+  .card { transition: box-shadow 0.5s var(--ease-out), border-color 0.5s var(--ease-out), transform 0.5s var(--ease-out); }
+  a.card:hover { border-color: rgba(201, 162, 75, 0.55); }
+
+  /* ID cards tilt like a real card held to the light */
+  .tilt { transition: transform 0.7s var(--ease-out), box-shadow 0.7s var(--ease-out); }
+  .tilt:hover { transform: perspective(1200px) rotateX(3deg) rotateY(-5deg) translateY(-4px); }
+
+  /* Header gains depth once the page scrolls */
+  .site-header { transition: box-shadow 0.5s var(--ease-out), background-color 0.5s var(--ease-out); }
+  html[data-scrolled="true"] .site-header {
+    background-color: rgba(251, 248, 241, 0.96);
+    box-shadow: 0 12px 30px -20px rgba(36, 21, 12, 0.45);
+  }
+
+  /* Thin gold reading-progress line at the very top of public pages */
+  .scroll-progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 2px;
+    z-index: 60;
+    background: linear-gradient(90deg, #a6823a, #e6cf8f, #c9a24b);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv:not(.rv-in) { opacity: 1; }
+  .parallax-slow, .tilt:hover { transform: none; }
+  .text-shimmer { animation: none; background-position: 50% 0; }
+}
+
+@media print {
+  .rv:not(.rv-in) { opacity: 1 !important; }
+  .tilt, .tilt:hover, .parallax-slow { transform: none !important; }
+  .scroll-progress { display: none !important; }
 }

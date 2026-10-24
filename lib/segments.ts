@@ -37,7 +37,7 @@ export const SEGMENTS = {
     arabic: "عضو",
     code: "MEM",
     color: "#4A2C1A",
-    blurb: "General members of the congregation who pray with us, support Markaz-ul-Igathah and take part in its activities.",
+    blurb: "General members of the congregation who pray with us, support the Markaz and take part in its activities.",
   },
 } as const;
 
