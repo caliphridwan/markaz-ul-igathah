@@ -36,11 +36,11 @@ const programmes = [
     arabicTitle: "تحفيظ القرآن الكريم",
     summary:
       "Complete memorisation of the Noble Qur'an under certified huffadh, with daily revision (muraja'ah), tajweed correction and a final ijazah recitation.",
-    duration: "3 – 4 years",
+    duration: "3 months",
     mode: "Full-time, on campus",
     schedule: "Sat – Thu, 7:00am – 1:00pm",
     order: 1,
-    tuition: 120000,
+    tuition: 6000,
   },
   {
     slug: "arabic-language",
@@ -48,35 +48,35 @@ const programmes = [
     arabicTitle: "اللغة العربية",
     summary:
       "From the alphabet to classical texts: nahw, sarf, balaghah, reading and composition — taught through the Madinah curriculum with spoken practice.",
-    duration: "2 years (4 levels)",
+    duration: "3 months",
     mode: "Full-time or weekend",
-    schedule: "Mon – Fri, 9:00am – 2:00pm",
+    schedule: "Mon – Fri, 9:00am – 2:00pm, Mondays, Tuesdays, Wednesdays (4pm-6pm)",
     order: 2,
-    tuition: 85000,
+    tuition: 8500,
   },
-  {
-    slug: "islamic-studies-diploma",
-    title: "Diploma in Islamic Studies",
-    arabicTitle: "الدبلوم في الدراسات الإسلامية",
-    summary:
-      "A structured diploma covering 'aqidah, fiqh, hadith, seerah, tafsir and Islamic history, preparing graduates to teach and serve their communities.",
-    duration: "2 years",
-    mode: "Full-time",
-    schedule: "Mon – Fri, 8:00am – 3:00pm",
-    order: 3,
-    tuition: 150000,
-  },
+  // {
+  //   slug: "islamic-studies-diploma",
+  //   title: "Diploma in Islamic Studies",
+  //   arabicTitle: "الدبلوم في الدراسات الإسلامية",
+  //   summary:
+  //     "A structured diploma covering 'aqidah, fiqh, hadith, seerah, tafsir and Islamic history, preparing graduates to teach and serve their communities.",
+  //   duration: "2 years",
+  //   mode: "Full-time",
+  //   schedule: "Mon – Fri, 8:00am – 3:00pm",
+  //   order: 3,
+  //   tuition: 000,
+  // },
   {
     slug: "tajweed-qiraat",
     title: "Tajweed & Qira'at",
     arabicTitle: "التجويد والقراءات",
     summary:
       "Precise articulation, rules of recitation and the major qira'at, culminating in a sanad-connected ijazah for qualified students.",
-    duration: "1 year",
+    duration: "3 months",
     mode: "Evenings & weekends",
     schedule: "Tue, Thu & Sat, 4:00pm – 6:30pm",
     order: 4,
-    tuition: 60000,
+    tuition: 6000,
   },
   {
     slug: "childrens-madrasah",
@@ -86,9 +86,9 @@ const programmes = [
       "A warm, structured foundation for ages 5 – 12: Qur'an reading, du'a, adab, basic fiqh of worship and Arabic — taught with patience and play.",
     duration: "Continuous (termly)",
     mode: "Weekends",
-    schedule: "Sat & Sun, 9:00am – 1:00pm",
+    schedule: "Sat & Sun, 9:00am – 1:00pm, Mondays, Tuesdays, & Wednesdays (4pm-6pm) ",
     order: 5,
-    tuition: 45000,
+    tuition: 6000,
   },
   {
     slug: "adult-evening",
@@ -96,11 +96,11 @@ const programmes = [
     arabicTitle: "فصول الكبار المسائية",
     summary:
       "For working professionals: Qur'an reading, essential fiqh and Arabic in small groups, scheduled around the working day.",
-    duration: "1 year",
+    duration: "3 months",
     mode: "Evenings",
     schedule: "Mon, Wed & Fri, 6:00pm – 8:00pm",
     order: 6,
-    tuition: 40000,
+    tuition: 6000,
   },
 ];
 
@@ -123,9 +123,9 @@ async function main() {
   }
 
   const general = [
-    { name: "Application Fee", description: "Processing of admission application", amount: naira(5000) },
+    { name: "Application Fee", description: "Processing of admission application", amount: naira(4000) },
     { name: "Acceptance Fee", description: "Secures your admission and activates your student account", amount: naira(15000), activatesAccount: true },
-    { name: "ID Card Fee", description: "Production of your official student identity card", amount: naira(3000) },
+    { name: "ID Card Fee", description: "Production of your official student identity card", amount: naira(2000) },
   ];
   for (const g of general) {
     const exists = await prisma.feeItem.findFirst({ where: { name: g.name, session: SESSION, programmeId: null } });
