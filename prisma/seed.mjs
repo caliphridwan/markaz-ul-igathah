@@ -182,7 +182,7 @@ async function main() {
       role: "ADMIN",
       firstName: "Registry",
       lastName: "Admin",
-      phone: "0000000000",
+      phone: "09038543371",
       gender: "MALE",
       status: "ACTIVE",
     },

@@ -8,7 +8,7 @@ export const site = {
   shortName: "MUI",
   tagline: "A House of Qur'an, Arabic & Islamic Learning",
   description:
-    "Markaz-ul-Igathah is an Arabic and Islamic institution nurturing huffadh, scholars and upright citizens through authentic knowledge, sincere character and excellence in service.",
+    "Markaz-ul-Igathah is an Arabic and Islamic institution nurturing Muslims, scholars and upright citizens through authentic knowledge, sincere character and excellence in service.",
   founded: 2009, // TODO: confirm founding year
   currentSession: "2026/2027",
   address: "No. 1 Markaz Street, Aparadija, Adeleye, Ado-Odo Ota, Ogun State, Nigeria",
@@ -25,14 +25,14 @@ export const site = {
   },
   // Shown on /donate for donors who prefer bank transfer — TODO: replace with the Markaz's real account
   bank: {
-    bankName: "Bank name",
+    bankName: "First Bank",
     accountName: "Markaz-ul-Igathah",
-    accountNumber: "0000000000",
+    accountNumber: "0123456789",
   },
   stats: [
     { value: "1,200+", label: "Students taught" },
-    { value: "340", label: "Huffadh graduated" },
-    { value: "28", label: "Qualified teachers" },
+    { value: "400+", label: "Students graduated" },
+    { value: "18+", label: "Qualified teachers" },
     { value: "6", label: "Programmes" },
   ],
 };
